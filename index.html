@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rudik — AI Automation Consultancy</title>
+  <meta name="description" content="I automate your stuff with AI. Less human bottlenecks, more money. A boutique consultancy for high-growth companies across the US, Canada, LatAm, and Australia.">
+
+  <meta property="og:title" content="Rudik — AI Automation Consultancy">
+  <meta property="og:description" content="Less human bottlenecks, more money. A boutique AI automation consultancy.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rudiks.com">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* deep indigo authority base + warm amber accent — elite-consultancy register */
+      --bg: #0d1230;          /* midnight indigo */
+      --panel: #11173b;       /* slightly lifted indigo panel */
+      --panel-2: #0a0e26;     /* deepest indigo for footer rule */
+      --ink: #f3f4fb;
+      --ink-dim: #a9adcd;
+      --ink-faint: #6c7099;
+      --line: rgba(243, 244, 251, 0.12);
+      --accent: #e8843c;      /* warm amber-orange */
+      --accent-soft: rgba(232, 132, 60, 0.14);
+      --display: "Fraunces", Georgia, serif;
+      --body: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--body);
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .page {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      min-height: 100vh;
+    }
+
+    .photo {
+      position: relative;
+      background: #050714;
+      overflow: hidden;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.05) saturate(0.96) brightness(0.96);
+      transform: scale(1.04);
+      animation: slowZoom 18s ease-out forwards;
+    }
+
+    @keyframes slowZoom { to { transform: scale(1); } }
+
+    /* indigo-tinted vignette blends the portrait into the deep-blue UI */
+    .photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, transparent 52%, rgba(13,18,48,0.65) 100%),
+        linear-gradient(180deg, rgba(13,18,48,0.5) 0%, transparent 24%, transparent 68%, rgba(13,18,48,0.72) 100%);
+      pointer-events: none;
+    }
+
+    .brand {
+      position: absolute;
+      top: 38px;
+      left: 42px;
+      z-index: 3;
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 1.45rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      opacity: 0;
+      animation: fadeIn 1s ease 0.2s forwards;
+    }
+
+    .brand .dot { color: var(--accent); }
+
+    .photo-foot {
+      position: absolute;
+      bottom: 34px;
+      left: 42px;
+      right: 42px;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      opacity: 0;
+      animation: fadeIn 1s ease 0.9s forwards;
+    }
+
+    .photo-foot a {
+      color: var(--ink-dim);
+      text-decoration: none;
+      transition: color 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .photo-foot a:hover { color: var(--ink); }
+    .photo-foot a svg { width: 13px; height: 13px; }
+
+    .content {
+      position: relative;
+      background: var(--panel);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 7vh 6vw;
+    }
+
+    /* subtle indigo-to-accent glow top-right for depth */
+    .content::before {
+      content: "";
+      position: absolute;
+      top: -12%;
+      right: -12%;
+      width: 55%;
+      height: 55%;
+      background: radial-gradient(circle, rgba(232,132,60,0.10) 0%, transparent 68%);
+      pointer-events: none;
+    }
+
+    .inner { position: relative; max-width: 540px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2.4rem;
+      opacity: 0;
+      animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .headline {
+      font-family: var(--display);
+      font-weight: 300;
+      font-size: clamp(3.4rem, 6.5vw, 6.2rem);
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.28s forwards;
+    }
+
+    .headline em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+
+    .subname {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.2rem, 2vw, 1.7rem);
+      color: var(--ink-dim);
+      margin-bottom: 2.6rem;
+      opacity: 0;
+      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+    }
+
+    .pitch {
+      font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--ink);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.52s forwards;
+    }
+    .pitch strong { font-weight: 600; }
+    .pitch em { font-style: italic; color: var(--accent); }
+
+    .pitch.flow {
+      font-size: clamp(0.92rem, 1.1vw, 1.02rem);
+      color: var(--ink-dim);
+      line-height: 1.7;
+      margin-top: 2rem;
+      margin-bottom: 2.6rem;
+      max-width: 480px;
+      animation-delay: 0.62s;
+    }
+    .pitch.flow strong { color: var(--ink); font-weight: 500; }
+    .pitch.flow em { color: var(--ink); font-style: italic; }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.74s forwards;
+    }
+
+    .btn {
+      font-family: var(--body);
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 15px 26px;
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #2a1404;
+      font-weight: 600;
+      border: 1px solid var(--accent);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      font-weight: 400;
+    }
+    .btn-ghost:hover {
+      border-color: var(--ink-dim);
+      transform: translateY(-2px);
+    }
+    .btn .arrow { transition: transform 0.3s ease; }
+    .btn:hover .arrow { transform: translateX(4px); }
+
+    .contact {
+      border-top: 1px solid var(--line);
+      padding-top: 1.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.4rem;
+      opacity: 0;
+      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.86s forwards;
+    }
+
+    .contact .item .label {
+      display: block;
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 6px;
+    }
+
+    .contact .item .val,
+    .contact .item .val a {
+      font-size: 0.95rem;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    .contact .item .val a:hover { color: var(--accent); }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    @media (max-width: 900px) {
+      .page { grid-template-columns: 1fr; }
+      .photo { height: 58vh; min-height: 380px; }
+      .content { padding: 9vh 8vw; }
+      .brand { top: 28px; left: 28px; }
+      .photo-foot { left: 28px; right: 28px; bottom: 26px; }
+    }
+
+    @media (max-width: 480px) {
+      .contact { gap: 1.6rem; }
+      .actions { width: 100%; }
+      .btn { flex: 1; justify-content: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::after { animation: none !important; opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <section class="photo">
+      <div class="brand">Rudik<span class="dot">.</span></div>
+      <img src="photo.jpg" alt="Rudik" loading="eager" onerror="this.style.display='none'">
+      <div class="photo-foot">
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+        <span>&copy; 2026</span>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="inner">
+        <span class="eyebrow">AI Automation Consultancy</span>
+
+        <h1 class="headline">hey, <em>I'm Rudik.</em></h1>
+        <p class="subname">I automate your stuff with AI.</p>
+
+        <p class="pitch">Less <em>human bottlenecks</em>.<br>More <strong>money</strong>.</p>
+
+        <p class="pitch flow">My team starts working on your stuff <strong>ASAP</strong>. We're a <em>boutique consultancy</em> partnering with high-growth companies across the <strong>US, Canada, LatAm &amp; Australia</strong>.</p>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2D2k60mzN-EPa22NqxtK6Vm5IGt9fqlmY--K_RbDQLA056f5rxhsdyW1sM68hqqs-ri-n7LrBE" target="_blank" rel="noopener">
+            Schedule a meeting <span class="arrow">&rarr;</span>
+          </a>
+          <a class="btn btn-ghost" href="https://www.upwork.com/freelancers/~017cffbe03216e94c3" target="_blank" rel="noopener">
+            View portfolio
+          </a>
+        </div>
+
+        <div class="contact">
+          <div class="item" id="email-item"></div>
+          <div class="item">
+            <span class="label">Website</span>
+            <span class="val"><a href="https://cincois.com" target="_blank" rel="noopener">cincois.com</a></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    (function () {
+      var addr = "rudik" + "@" + "cincois.com";
+      document.getElementById("email-item").innerHTML =
+        '<span class="label">Email</span>' +
+        '<span class="val"><a href="mailto:' + addr + '">' + addr + '</a></span>';
+    })();
+  </script>
+</body>
+</html>
