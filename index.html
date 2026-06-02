@@ -15,6 +15,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+  <!-- preload the hero portrait so it starts downloading before CSS/JS parse -->
+  <link rel="preload" as="image" type="image/webp"
+        imagesrcset="rudiks_photo-900.webp 900w, rudiks_photo-1400.webp 1400w"
+        imagesizes="(max-width: 900px) 100vw, 52vw">
+
   <style>
     :root {
       /* deep indigo authority base + warm amber accent — elite-consultancy register */
@@ -313,18 +318,34 @@
     }
     @keyframes fadeIn { to { opacity: 1; } }
 
+    /* tablets / large phones — stack the two panels */
     @media (max-width: 900px) {
       .page { grid-template-columns: 1fr; }
-      .photo { height: 58vh; min-height: 380px; }
-      .content { padding: 9vh 8vw; }
+      .photo { height: 52vh; min-height: 340px; max-height: 560px; }
+      .content { padding: 8vh 7vw; }
       .brand { top: 28px; left: 28px; }
       .photo-foot { left: 28px; right: 28px; bottom: 26px; }
+    }
+
+    /* phones */
+    @media (max-width: 600px) {
+      .photo { height: 44vh; min-height: 300px; }
+      .content { padding: 6vh 7vw 8vh; }
+      .eyebrow { margin-bottom: 1.6rem; }
+      .subname { margin-bottom: 1.8rem; }
+      .pitch.flow { margin-top: 1.4rem; margin-bottom: 2rem; }
+      .actions { margin-bottom: 2.2rem; }
     }
 
     @media (max-width: 480px) {
       .contact { gap: 1.6rem; }
       .actions { width: 100%; }
-      .btn { flex: 1; justify-content: center; }
+      .btn { flex: 1 1 100%; justify-content: center; }
+    }
+
+    /* short / landscape screens — keep the portrait from eating the viewport */
+    @media (max-height: 560px) and (max-width: 900px) {
+      .photo { height: 36vh; min-height: 200px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -337,7 +358,17 @@
 
     <section class="photo">
       <div class="brand">Rudik<span class="dot">.</span></div>
-      <img src="rudiks_photo.jpg" alt="Rudik" loading="eager" onerror="this.style.display='none'">
+      <picture>
+        <source type="image/webp"
+                srcset="rudiks_photo-900.webp 900w, rudiks_photo-1400.webp 1400w"
+                sizes="(max-width: 900px) 100vw, 52vw">
+        <img src="rudiks_photo-1400.jpg"
+             srcset="rudiks_photo-900.jpg 900w, rudiks_photo-1400.jpg 1400w"
+             sizes="(max-width: 900px) 100vw, 52vw"
+             width="1400" height="1750"
+             alt="Rudik" fetchpriority="high" decoding="async"
+             onerror="this.style.display='none'">
+      </picture>
       <div class="photo-foot">
         <a href="https://www.linkedin.com/in/therudiks/" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
