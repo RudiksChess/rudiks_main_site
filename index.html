@@ -42,6 +42,8 @@
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       scroll-behavior: smooth;
+      overflow-x: hidden;
+      max-width: 100%;
     }
 
     body {
@@ -131,16 +133,18 @@
     }
 
     .photo-foot a {
-      color: var(--ink-dim);
+      color: var(--ink);
+      font-weight: 500;
       text-decoration: none;
       transition: color 0.25s ease;
       display: inline-flex;
       align-items: center;
       gap: 7px;
+      text-shadow: 0 1px 10px rgba(5, 7, 20, 0.65);
     }
 
-    .photo-foot a:hover { color: var(--ink); }
-    .photo-foot a svg { width: 13px; height: 13px; }
+    .photo-foot a:hover { color: var(--accent); }
+    .photo-foot a svg { width: 14px; height: 14px; }
 
     .content {
       position: relative;
@@ -149,6 +153,7 @@
       flex-direction: column;
       justify-content: center;
       padding: 7vh 6vw;
+      overflow: hidden;
     }
 
     /* subtle indigo-to-accent glow top-right for depth */
@@ -322,6 +327,8 @@
     @media (max-width: 900px) {
       .page { grid-template-columns: 1fr; }
       .photo { height: 52vh; min-height: 340px; max-height: 560px; }
+      /* short/wide container on stacked layout — keep the face in frame */
+      .photo img { object-position: center 20%; }
       .content { padding: 8vh 7vw; }
       .brand { top: 28px; left: 28px; }
       .photo-foot { left: 28px; right: 28px; bottom: 26px; }
