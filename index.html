@@ -319,6 +319,64 @@
     }
     .contact .item .val a:hover { color: var(--accent); }
 
+    /* "currently building" card — the ventures I'm actively shipping */
+    .building {
+      width: fit-content;
+      max-width: 100%;
+      margin-bottom: 2rem;
+      padding: 14px 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(243, 244, 251, 0.02);
+      opacity: 0;
+      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.92s forwards;
+    }
+    .building-head {
+      display: block;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 10px;
+    }
+    .venture {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 7px 0;
+      font-size: 0.84rem;
+      line-height: 1.3;
+      color: var(--ink-dim);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .venture + .venture { border-top: 1px solid var(--line); }
+    .venture:hover { color: var(--ink); }
+    .venture strong { color: var(--ink); font-weight: 600; }
+    .venture-text { flex: 1; min-width: 0; }
+    .venture .live {
+      flex: none;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 rgba(232, 132, 60, 0.55);
+      animation: pulse 2.2s ease-out infinite;
+    }
+    .venture .ext {
+      flex: none;
+      padding-left: 12px;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+    .venture:hover .ext { transform: translate(2px, -2px); }
+
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(232, 132, 60, 0.55); }
+      70%  { box-shadow: 0 0 0 8px rgba(232, 132, 60, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(232, 132, 60, 0); }
+    }
+
     @keyframes rise {
       from { opacity: 0; transform: translateY(22px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -377,6 +435,9 @@
       .pitch { margin-bottom: 0.7rem; }
       .pitch.flow { margin-top: 1.1rem; margin-bottom: 1.5rem; }
       .actions { margin-bottom: 1.5rem; }
+      .building { margin-bottom: 1.3rem; padding: 11px 16px; }
+      .building-head { margin-bottom: 7px; }
+      .venture { padding: 5px 0; font-size: 0.8rem; }
       .contact { padding-top: 1.4rem; }
     }
 
@@ -427,6 +488,20 @@
           </a>
           <a class="btn btn-ghost" href="https://www.upwork.com/freelancers/~017cffbe03216e94c3" target="_blank" rel="noopener">
             See the work
+          </a>
+        </div>
+
+        <div class="building">
+          <span class="building-head">Currently building</span>
+          <a class="venture" href="https://www.cinco.org.gt" target="_blank" rel="noopener">
+            <span class="live"></span>
+            <span class="venture-text"><strong>CINCO</strong> — independent think tank for Guatemala</span>
+            <span class="ext">&#8599;</span>
+          </a>
+          <a class="venture" href="https://celiacos.com.gt" target="_blank" rel="noopener">
+            <span class="live"></span>
+            <span class="venture-text"><strong>Celiacos</strong> — for Guatemala's celiac community</span>
+            <span class="ext">&#8599;</span>
           </a>
         </div>
 
