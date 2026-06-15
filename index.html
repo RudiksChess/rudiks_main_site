@@ -291,6 +291,12 @@
     .btn .arrow { transition: transform 0.3s ease; }
     .btn:hover .arrow { transform: translateX(4px); }
 
+    /* stretch the two CTAs to fill the column so they line up on the right
+       with the card and contact buttons below — "Book…" mirrors the wider
+       email button, "See the work" mirrors the website button */
+    .actions .btn { flex: 1 1 0; min-width: 0; justify-content: center; }
+    .actions .btn-primary { flex-grow: 1.54; }
+
     .contact {
       border-top: 1px solid var(--line);
       padding-top: 1.9rem;
@@ -478,7 +484,7 @@
     @media (max-width: 480px) {
       .contact { gap: 10px; }
       .actions { width: 100%; }
-      .btn { flex: 1 1 100%; justify-content: center; }
+      .actions .btn { flex: 1 1 100%; justify-content: center; }
       .cbtn { flex: 1 1 100%; }
     }
 
