@@ -3,13 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rudik — Systems & Operations Consultancy</title>
-  <meta name="description" content="I redesign how your company runs — the systems and automations that let high-growth teams scale output without scaling headcount. A boutique practice across the US, Canada, LatAm & Australia.">
+  <title>Rudik Rompich — Systems & Operations Consultant</title>
+  <meta name="description" content="Rudik Rompich — systems & operations consultant. I redesign how high-growth companies run: the systems and automations that scale output without scaling headcount.">
+  <meta name="author" content="Rudik Rompich">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://rudiks.com/">
 
-  <meta property="og:title" content="Rudik — Systems & Operations Consultancy">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Rudik Rompich — Systems & Operations Consultant">
   <meta property="og:description" content="I redesign how your company runs. Systems, operations, and automation for high-growth teams — AI where it earns its place. Boutique by design.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://rudiks.com">
+  <meta property="og:url" content="https://rudiks.com/">
+  <meta property="og:site_name" content="Rudik Rompich">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://rudiks.com/rudiks_photo-1400.jpg">
+  <meta property="og:image:width" content="1400">
+  <meta property="og:image:height" content="1750">
+  <meta property="og:image:alt" content="Rudik Rompich, systems & operations consultant">
+
+  <!-- Twitter / X cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rudik Rompich — Systems & Operations Consultant">
+  <meta name="twitter:description" content="I redesign how your company runs. Systems, operations, and automation for high-growth teams — AI where it earns its place.">
+  <meta name="twitter:image" content="https://rudiks.com/rudiks_photo-1400.jpg">
+  <meta name="twitter:image:alt" content="Rudik Rompich">
+
+  <!-- Structured data: Person + WebSite (entity signals for name searches) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://rudiks.com/#person",
+        "name": "Rudik Rompich",
+        "alternateName": "Rudik",
+        "url": "https://rudiks.com/",
+        "image": "https://rudiks.com/rudiks_photo-1400.jpg",
+        "jobTitle": "Systems & Operations Consultant",
+        "description": "Systems and operations consultant who redesigns how high-growth companies run — building the systems and automations that scale output without scaling headcount.",
+        "knowsAbout": ["Systems design", "Business operations", "Workflow automation", "AI automation", "Process optimization"],
+        "sameAs": [
+          "https://www.linkedin.com/in/therudiks/",
+          "https://www.upwork.com/freelancers/~017cffbe03216e94c3"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://rudiks.com/#website",
+        "url": "https://rudiks.com/",
+        "name": "Rudik Rompich",
+        "description": "Systems & operations consultancy — Rudik Rompich.",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://rudiks.com/#person" }
+      }
+    ]
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -147,6 +197,15 @@
 
     .photo-foot a:hover { color: var(--accent); }
     .photo-foot a svg { width: 14px; height: 14px; }
+
+    /* full name shown alongside LinkedIn — visible signal for name searches */
+    .foot-id { display: inline-flex; align-items: center; gap: 12px; min-width: 0; }
+    .foot-name { color: var(--ink-dim); white-space: nowrap; }
+    .foot-name::before {
+      content: "·";
+      margin-right: 12px;
+      color: var(--ink-faint);
+    }
 
     .content {
       position: relative;
@@ -543,14 +602,17 @@
              srcset="rudiks_photo-900.jpg 900w, rudiks_photo-1400.jpg 1400w"
              sizes="(max-width: 900px) 100vw, 52vw"
              width="1400" height="1750"
-             alt="Rudik" fetchpriority="high" decoding="async"
+             alt="Rudik Rompich" fetchpriority="high" decoding="async"
              onerror="this.style.display='none'">
       </picture>
       <div class="photo-foot">
-        <a href="https://www.linkedin.com/in/therudiks/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-          LinkedIn
-        </a>
+        <span class="foot-id">
+          <a href="https://www.linkedin.com/in/therudiks/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+            LinkedIn
+          </a>
+          <span class="foot-name">Rudik Rompich</span>
+        </span>
         <span>&copy; 2026</span>
       </div>
     </section>
