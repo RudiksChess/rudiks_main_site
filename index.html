@@ -395,25 +395,27 @@
     }
     .venture:hover .ext { transform: translate(2px, -2px); }
 
-    /* Cinco's live public-policy dashboards — compact square tiles */
+    /* Cinco's live public-policy dashboards — square tiles sized to the
+       "See the work" button height (48px) so the buttons line up */
     .dashboards {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
+      flex-wrap: wrap;
       gap: 8px;
-      max-width: 320px;
       margin: 10px 0 12px;
       padding-left: 19px; /* aligns the row of tiles under the venture text */
     }
     .dash {
+      flex: none;
+      width: 48px;
+      height: 48px; /* = .btn height, so the squares align with "See the work" */
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      aspect-ratio: 1 / 1;
-      padding: 6px 4px;
+      gap: 3px;
+      padding: 4px 3px;
       border: 1px solid var(--line);
-      border-radius: 11px;
+      border-radius: 10px;
       background: rgba(243, 244, 251, 0.02);
       color: var(--ink-dim);
       text-decoration: none;
@@ -421,8 +423,8 @@
       transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
                   border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
     }
-    .dash svg { width: 20px; height: 20px; stroke: currentColor; transition: transform 0.25s ease; }
-    .dash-name { font-size: 0.6rem; letter-spacing: 0.02em; font-weight: 500; }
+    .dash svg { width: 18px; height: 18px; stroke: currentColor; transition: transform 0.25s ease; }
+    .dash-name { font-size: 0.5rem; letter-spacing: 0; font-weight: 500; line-height: 1; white-space: nowrap; }
     .dash:hover {
       transform: translateY(-3px);
       border-color: var(--accent);
@@ -506,8 +508,7 @@
       .building { margin-bottom: 1.3rem; padding: 11px 16px; }
       .building-head { margin-bottom: 7px; }
       .venture { padding: 5px 0; font-size: 0.8rem; }
-      .dashboards { margin: 7px 0 8px; max-width: 300px; }
-      .dash { border-radius: 9px; gap: 5px; }
+      .dashboards { margin: 7px 0 8px; }
       .contact { padding-top: 1.4rem; }
       .cbtn { padding: 9px 16px 9px 10px; }
       .cbtn-ico { width: 32px; height: 32px; }
