@@ -303,6 +303,8 @@
 
     /* email + website promoted from footer text to clear, icon-led buttons */
     .cbtn {
+      flex: 1 1 0;
+      min-width: 0;
       display: inline-flex;
       align-items: center;
       gap: 12px;
@@ -342,10 +344,13 @@
     }
     .cbtn-val { font-size: 0.92rem; font-weight: 500; color: var(--ink); }
     .cbtn:hover .cbtn-val { color: var(--accent); }
+    /* email mirrors the wider "Book…" button, website the narrower "See the work",
+       so the two rows line up into a column grid */
+    #email-btn { flex-grow: 1.54; }
 
     /* "currently building" card — the ventures I'm actively shipping */
     .building {
-      width: fit-content;
+      width: 100%; /* match the actions-row width so the column edges align */
       max-width: 100%;
       margin-bottom: 2rem;
       padding: 14px 18px;
