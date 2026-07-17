@@ -31,6 +31,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Rudik Rompich — Founder of Cinco · Systems & Operations">
   <meta name="twitter:description" content="Founder of Cinco. I redesign how your company runs — systems, operations, and automation for high-growth teams.">
+  <meta name="twitter:site" content="@xrudik">
+  <meta name="twitter:creator" content="@xrudik">
   <meta name="twitter:image" content="https://rudiks.com/rudiks_photo-1400.jpg">
   <meta name="twitter:image:alt" content="Rudik Rompich">
 
@@ -56,6 +58,8 @@
         "description": "Founder of Cinco. Redesigns how high-growth companies run — building the systems and automations that scale output without scaling headcount.",
         "knowsAbout": ["Systems design", "Business operations", "Workflow automation", "AI automation", "Process optimization"],
         "sameAs": [
+          "https://x.com/xrudik",
+          "https://twitter.com/xrudik",
           "https://www.linkedin.com/in/therudiks/",
           "https://www.upwork.com/freelancers/~017cffbe03216e94c3"
         ]
@@ -378,6 +382,22 @@
       transform: translateY(-2px);
     }
 
+    /* company logo chips — a light tile keeps any mark legible on the dark UI
+       (and on the amber hover state); onerror removes the img if the SVG
+       asset isn't in the repo yet, so rows fall back to text-only */
+    .btn-logo,
+    .venture-logo {
+      flex: none;
+      width: auto;
+      max-width: 92px;
+      object-fit: contain;
+      background: #f6f7fc;
+      border-radius: 6px;
+      padding: 3px 5px;
+    }
+    .btn-logo { height: 20px; }
+    .venture-logo { height: 22px; }
+
     .contact {
       border-top: 1px solid var(--line);
       padding-top: 1.9rem;
@@ -623,6 +643,8 @@
       .building-head { margin-bottom: 6px; }
       .venture + .building-head { margin-top: 9px; padding-top: 8px; }
       .venture { padding: 4px 0; font-size: 0.8rem; }
+      .btn-logo { height: 18px; }
+      .venture-logo { height: 19px; }
       .dashboards { margin: 6px 0 7px; }
       .dash { width: 44px; height: 44px; }
       .contact { padding-top: 1.2rem; }
@@ -643,6 +665,8 @@
       .btn { padding: 11px 20px; }
       .building { margin-bottom: 0.8rem; padding: 9px 14px; }
       .venture { padding: 3px 0; font-size: 0.76rem; }
+      .btn-logo { height: 16px; }
+      .venture-logo { height: 17px; }
       .dashboards { margin: 5px 0 6px; }
       .dash { width: 38px; height: 38px; }
       .dash svg { width: 14px; height: 14px; }
@@ -704,6 +728,7 @@
             See the work
           </a>
           <a class="btn btn-company" href="https://cincois.com" target="_blank" rel="noopener">
+            <img class="btn-logo" src="logo-cincois.svg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
             cincois.com — the main company <span class="arrow">&#8599;</span>
           </a>
         </div>
@@ -712,6 +737,7 @@
           <span class="building-head">Currently building</span>
           <a class="venture c-gt" href="https://www.cinco.org.gt" target="_blank" rel="noopener">
             <span class="live"></span>
+            <img class="venture-logo" src="logo-cinco-gt.svg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
             <span class="venture-text"><strong>Cinco Guatemala</strong> — public policy laboratory</span>
             <span class="ext">&#8599;</span>
           </a>
@@ -758,6 +784,15 @@
         <div class="contact">
           <!-- email injected by JS below (anti-scraping); icon + label built there -->
           <a class="cbtn" id="email-btn" aria-label="Email Rudik"></a>
+          <a class="cbtn" href="https://x.com/xrudik" target="_blank" rel="noopener" aria-label="Rudik Rompich on X (Twitter)">
+            <span class="cbtn-ico">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </span>
+            <span class="cbtn-label">
+              <span class="cbtn-kicker">X / Twitter</span>
+              <span class="cbtn-val">@xrudik</span>
+            </span>
+          </a>
         </div>
       </div>
     </section>
