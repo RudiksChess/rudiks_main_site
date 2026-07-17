@@ -13,7 +13,7 @@
   <link rel="icon" href="favicon.ico" sizes="32x32">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <meta name="theme-color" content="#f4f0e4">
+  <meta name="theme-color" content="#e9e7e0">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Rudik Rompich — Founder of Cinco · Systems & Operations">
@@ -77,36 +77,68 @@
   }
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- preload the hero portrait so it starts downloading before CSS parses -->
-  <link rel="preload" as="image" type="image/webp"
-        imagesrcset="rudiks_photo-900.webp 900w, rudiks_photo-1400.webp 1400w"
-        imagesizes="(max-width: 900px) 88vw, 38vw">
+  <!-- Self-hosted Latin Modern (LaTeX default serif) + Computer Modern Typewriter -->
+  <link rel="preload" as="font" type="font/woff2" href="fonts/LatinModern-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="fonts/CMUTypewriter-Regular.woff2" crossorigin>
+  <link rel="preload" as="image" type="image/webp" href="rudiks_plate-880.webp">
 
   <style>
+    /* ============================================================
+       Typeset in Latin Modern Roman & Computer Modern Typewriter.
+       A landing page set like a mathematician's working paper.
+       ============================================================ */
+
+    @font-face {
+      font-family: "LM Roman";
+      src: url("fonts/LatinModern-Regular.woff2") format("woff2");
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: "LM Roman";
+      src: url("fonts/LatinModern-Italic.woff2") format("woff2");
+      font-weight: 400; font-style: italic; font-display: swap;
+    }
+    @font-face {
+      font-family: "LM Roman";
+      src: url("fonts/LatinModern-Bold.woff2") format("woff2");
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: "LM Roman";
+      src: url("fonts/LatinModern-BoldItalic.woff2") format("woff2");
+      font-weight: 700; font-style: italic; font-display: swap;
+    }
+    @font-face {
+      font-family: "CMU Typewriter";
+      src: url("fonts/CMUTypewriter-Regular.woff2") format("woff2");
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: "CMU Typewriter";
+      src: url("fonts/CMUTypewriter-Italic.woff2") format("woff2");
+      font-weight: 400; font-style: italic; font-display: swap;
+    }
+    @font-face {
+      font-family: "CMU Typewriter";
+      src: url("fonts/CMUTypewriter-Bold.woff2") format("woff2");
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+
     :root {
-      /* printed field-manual palette: warm paper, warm ink, vermillion stamp */
-      --paper: #f4f0e4;
-      --paper-hi: #faf7ee;      /* card stock */
-      --ink: #1d1712;           /* warm near-black */
-      --ink-2: #574f3f;         /* dim ink */
-      --ink-3: #857c68;         /* faint ink */
-      --line: rgba(29, 23, 18, 0.18);
-      --line-soft: rgba(29, 23, 18, 0.10);
-      --acc: #bc4514;           /* vermillion ink */
-      --acc-deep: #983208;      /* darker vermillion for small text */
-      --acc-soft: rgba(188, 69, 20, 0.09);
-      /* per-venture inks, mixed for a cream background */
-      --c-civic: #2a5cb8;
-      --c-compras: #146e46;
-      --c-celiac: #96690a;
-      --c-twicee: #6d41b4;
-      --display: "Instrument Serif", Georgia, serif;
-      --body: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --mono: "Space Mono", "SFMono-Regular", Consolas, monospace;
+      --paper: #fcfcfa;          /* the sheet */
+      --desk: #e9e7e0;           /* desk behind the sheet */
+      --ink: #14130f;            /* near-black text */
+      --ink-2: #4a473f;          /* dim ink */
+      --ink-3: #86827a;          /* faint ink */
+      --line: rgba(20, 19, 15, 0.16);
+      --line-soft: rgba(20, 19, 15, 0.09);
+      --rule: rgba(20, 19, 15, 0.85);   /* booktabs rules */
+      --link: #1a3a86;           /* hyperref-style academic blue */
+      --link-deep: #12285e;
+      --link-soft: rgba(26, 58, 134, 0.10);
+
+      --serif: "LM Roman", "Latin Modern Roman", "Computer Modern", Georgia, "Times New Roman", serif;
+      --mono: "CMU Typewriter", "Latin Modern Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -115,969 +147,640 @@
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       scroll-behavior: smooth;
-      scroll-padding-top: 76px;
-      overflow-x: clip;
+      scroll-padding-top: 64px;
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
-      font-family: var(--body);
+      font-family: var(--serif);
       color: var(--ink);
-      min-height: 100vh;
-      overflow-x: clip;
-      /* graph paper */
-      background-color: var(--paper);
-      background-image:
-        linear-gradient(var(--grid, rgba(29,23,18,0.05)) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid, rgba(29,23,18,0.05)) 1px, transparent 1px);
-      background-size: 36px 36px;
+      background: var(--desk);
+      line-height: 1.5;
+      font-size: 18px;
+      font-kerning: normal;
+      font-variant-ligatures: common-ligatures;
     }
 
-    /* paper grain */
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 60;
-      opacity: 0.05;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
+    ::selection { background: var(--link-soft); }
 
-    /* printed-sheet trim frame */
-    .trim {
-      position: fixed;
-      inset: 10px;
-      border: 1px solid rgba(29, 23, 18, 0.35);
-      pointer-events: none;
-      z-index: 55;
-    }
-    @media (max-width: 700px) { .trim { display: none; } }
+    a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 0.6px; text-decoration-color: rgba(26, 58, 134, 0.5); }
+    a:hover { color: var(--link-deep); text-decoration-color: currentColor; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 
-    ::selection { background: var(--acc); color: var(--paper-hi); }
+    sup { line-height: 0; }
 
-    .wrap {
-      max-width: 1200px;
-      margin-inline: auto;
-      padding-inline: clamp(22px, 4.5vw, 52px);
-    }
-
-    /* ---------- top bar ---------- */
-    .topbar {
+    /* ---------- desk toolbar (slim, outside the sheet) ---------- */
+    .toolbar {
       position: sticky;
       top: 0;
-      z-index: 40;
-      background: var(--paper);
-      border-bottom: 1px solid var(--line);
+      z-index: 20;
+      background: color-mix(in srgb, var(--desk) 88%, transparent);
+      -webkit-backdrop-filter: saturate(1.1) blur(6px);
+      backdrop-filter: saturate(1.1) blur(6px);
+      border-bottom: 1px solid var(--line-soft);
     }
-    .topbar-in {
+    .toolbar-in {
+      max-width: 940px;
+      margin-inline: auto;
+      height: 44px;
+      padding-inline: clamp(16px, 4vw, 40px);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      height: 54px;
+      gap: 14px;
       font-family: var(--mono);
-      font-size: 0.66rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-    .brand {
-      color: var(--ink);
-      text-decoration: none;
-      font-weight: 700;
-      white-space: nowrap;
-      min-width: 0;
-    }
-    .brand .dot { color: var(--acc); }
-    .brand .doc { color: var(--ink-3); font-weight: 400; }
-    @media (max-width: 560px) { .brand .doc { display: none; } }
-    .topnav { display: flex; align-items: center; gap: clamp(12px, 2.4vw, 26px); }
-    .topnav a {
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
       color: var(--ink-2);
-      text-decoration: none;
-      white-space: nowrap;
-      transition: color 0.2s ease;
     }
-    .topnav a:hover { color: var(--acc-deep); }
-    .topnav a.x-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      color: var(--ink);
-      border: 1px solid var(--line);
-      padding: 6px 11px;
-      background: var(--paper-hi);
-      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-    }
-    .topnav a.x-link:hover { background: var(--ink); color: var(--paper-hi); border-color: var(--ink); }
-    .topnav svg { width: 12px; height: 12px; fill: currentColor; }
-    @media (max-width: 760px) { .topnav .nav-mid { display: none; } }
+    .toolbar-in a { text-decoration: none; color: var(--ink-2); }
+    .toolbar-in a:hover { color: var(--link-deep); }
+    .tb-brand { font-weight: 700; color: var(--ink); white-space: nowrap; }
+    .tb-nav { display: flex; align-items: center; gap: clamp(10px, 2vw, 20px); white-space: nowrap; }
+    .tb-nav .num { color: var(--ink-3); }
+    @media (max-width: 620px) { .tb-nav .opt { display: none; } }
 
-    /* ---------- section furniture ---------- */
-    section { position: relative; }
-    .sec-head {
+    /* ---------- the sheet ---------- */
+    .sheet {
+      max-width: 840px;
+      margin: clamp(16px, 3.5vw, 40px) auto clamp(28px, 5vw, 56px);
+      background: var(--paper);
+      border: 1px solid var(--line-soft);
+      box-shadow: 0 1px 2px rgba(20,19,15,0.06), 0 18px 50px -22px rgba(20,19,15,0.35);
+      padding: clamp(2.4rem, 6vw, 5rem) clamp(1.5rem, 6vw, 5rem) clamp(2rem, 5vw, 3.5rem);
+      opacity: 0;
+      animation: sheet-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards;
+    }
+    @keyframes sheet-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+    /* running head */
+    .runhead {
       display: flex;
+      justify-content: space-between;
       align-items: baseline;
-      gap: 18px;
+      gap: 12px;
       font-family: var(--mono);
       font-size: 0.68rem;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--acc-deep);
-      margin-bottom: clamp(1.8rem, 3.5vw, 2.6rem);
+      color: var(--ink-3);
+      padding-bottom: 0.7rem;
+      margin-bottom: clamp(2.2rem, 5vw, 3.6rem);
+      border-bottom: 1px solid var(--line);
     }
-    .sec-head::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--line);
-      transform: translateY(-3px);
-    }
-    .sec-head .n { color: var(--ink-3); }
+    .runhead a { text-decoration: none; color: var(--ink-3); }
+    .runhead a:hover { color: var(--link-deep); }
 
-    .ghost-n {
-      position: absolute;
-      top: -0.05em;
-      right: -0.04em;
-      z-index: 0;
-      font-family: var(--mono);
-      font-weight: 700;
-      font-size: clamp(7rem, 18vw, 15rem);
-      line-height: 1;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(29, 23, 18, 0.10);
-      pointer-events: none;
-      user-select: none;
-    }
-
-    /* ---------- hero ---------- */
-    .hero { padding-block: clamp(3rem, 7vh, 5.5rem) clamp(3rem, 6vh, 4.5rem); }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-      gap: clamp(2.2rem, 5vw, 4.5rem);
-      align-items: start;
-      position: relative;
-      z-index: 1;
-    }
-
+    /* ---------- masthead / \maketitle ---------- */
+    .masthead { text-align: center; }
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-family: var(--mono);
-      font-size: 0.66rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--acc-deep);
-      margin-bottom: 2rem;
-      opacity: 0;
-      animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
-    }
-    .eyebrow::before { content: "§01"; color: var(--ink-3); }
-
-    h1.name {
-      font-family: var(--display);
-      font-weight: 400;
-      font-size: clamp(3.6rem, 9.2vw, 7.6rem);
-      line-height: 0.92;
-      letter-spacing: -0.015em;
-      opacity: 0;
-      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
-    }
-    h1.name em {
-      font-style: italic;
-      color: var(--acc);
-      display: block;
-    }
-
-    .statement {
-      font-family: var(--display);
-      font-style: italic;
-      font-size: clamp(1.45rem, 2.6vw, 2.15rem);
-      line-height: 1.15;
-      color: var(--ink-2);
-      margin-top: 1.4rem;
-      opacity: 0;
-      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.32s forwards;
-    }
-    .statement strong { font-weight: 400; color: var(--ink); }
-
-    .flow {
-      font-size: clamp(0.95rem, 1.15vw, 1.05rem);
-      font-weight: 300;
-      line-height: 1.75;
-      color: var(--ink-2);
-      max-width: 520px;
-      margin-top: 1.8rem;
-      opacity: 0;
-      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.44s forwards;
-    }
-    .flow strong { font-weight: 600; color: var(--ink); }
-    .flow a {
-      color: var(--ink);
-      font-weight: 500;
-      text-decoration: underline;
-      text-decoration-color: var(--acc);
-      text-decoration-thickness: 1.5px;
-      text-underline-offset: 3px;
-    }
-    .flow a:hover { color: var(--acc-deep); }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 2.4rem;
-      max-width: 520px;
-      opacity: 0;
-      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.56s forwards;
-    }
-    .btn {
       font-family: var(--mono);
       font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      text-decoration: none;
-      padding: 15px 22px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      flex: 1 1 0;
-      min-width: 0;
-      white-space: nowrap;
-      border: 1px solid var(--ink);
-      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-                  background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+      color: var(--ink-3);
+      margin-bottom: 1.4rem;
     }
-    .btn .arrow { transition: transform 0.25s ease; }
-    .btn:hover .arrow { transform: translateX(4px); }
-    .btn:focus-visible, a:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
-
-    .btn-primary { background: var(--ink); color: var(--paper-hi); box-shadow: 4px 4px 0 var(--acc); }
-    .btn-primary:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--acc); }
-    .btn-ghost { background: transparent; color: var(--ink); }
-    .btn-ghost:hover { background: var(--paper-hi); transform: translateY(-2px); }
-    .btn-company {
-      flex: 1 1 100%;
-      background: var(--acc-soft);
-      color: var(--acc-deep);
-      border-color: var(--acc-deep);
+    h1.title {
+      font-weight: 700;
+      font-size: clamp(2.7rem, 7.4vw, 4.6rem);
+      line-height: 1.02;
+      letter-spacing: -0.012em;
     }
-    .btn-company:hover { background: var(--acc); border-color: var(--acc); color: var(--paper-hi); transform: translateY(-2px); }
-
-    /* figure card — technical plate */
-    .fig {
-      position: relative;
-      background: var(--paper-hi);
-      border: 1px solid var(--ink);
-      padding: 12px;
-      box-shadow: 8px 8px 0 rgba(29, 23, 18, 0.10);
-      opacity: 0;
-      animation: rise 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+    .subtitle {
+      font-style: italic;
+      font-size: clamp(1.3rem, 3.1vw, 1.95rem);
+      line-height: 1.28;
+      color: var(--ink-2);
+      margin-top: 0.85rem;
     }
-    .fig .marks span {
-      position: absolute;
+    .byline {
+      margin-top: 1.5rem;
+      font-size: 1.02rem;
+    }
+    .byline a { font-weight: 400; }
+    .affil {
+      margin-top: 0.5rem;
       font-family: var(--mono);
-      font-size: 0.8rem;
-      color: var(--acc);
-      line-height: 1;
-      user-select: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      color: var(--ink-3);
+      line-height: 1.7;
     }
-    .fig .marks span:nth-child(1) { top: -7px; left: -7px; }
-    .fig .marks span:nth-child(2) { top: -7px; right: -7px; }
-    .fig .marks span:nth-child(3) { bottom: -7px; left: -7px; }
-    .fig .marks span:nth-child(4) { bottom: -7px; right: -7px; }
+    .masthead-rule {
+      width: 46px;
+      height: 2px;
+      background: var(--rule);
+      border: 0;
+      margin: clamp(1.8rem, 4vw, 2.6rem) auto clamp(1.6rem, 4vw, 2.4rem);
+    }
+
+    /* ---------- floated portrait plate ---------- */
+    figure.fig { margin: 0; }
     .fig img {
       display: block;
       width: 100%;
       height: auto;
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
-      filter: saturate(0.94) contrast(1.03);
-    }
-    .fig-cap {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-2);
-      border-top: 1px dashed var(--line);
-      margin-top: 12px;
-      padding-top: 10px;
-    }
-    .fig-cap b { color: var(--acc-deep); font-weight: 700; }
-
-    /* ---------- ticker ---------- */
-    .ticker {
-      border-block: 1px solid var(--ink);
-      background: var(--paper-hi);
-      overflow: hidden;
-      white-space: nowrap;
-      user-select: none;
-    }
-    .ticker-track {
-      display: inline-block;
-      padding-block: 11px;
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--ink-2);
-      animation: ticker 36s linear infinite;
-    }
-    .ticker-track .s { color: var(--acc); padding-inline: 1.4em; }
-    @keyframes ticker { to { transform: translateX(-50%); } }
-
-    /* ---------- system diagram ---------- */
-    .system { padding-block: clamp(3.5rem, 8vh, 6rem); }
-    .schematic {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr auto 1.15fr auto 1fr;
-      align-items: stretch;
-      gap: 0;
-    }
-    .node {
-      border: 1px dashed var(--ink-2);
-      background: var(--paper-hi);
-      padding: 20px 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      justify-content: center;
-    }
-    .node.core {
       border: 1px solid var(--ink);
-      background: var(--ink);
-      color: var(--paper);
-      box-shadow: 6px 6px 0 var(--acc);
+      background: var(--paper);
     }
-    .node-k {
+    .fig figcaption {
       font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--acc-deep);
+      font-size: 0.72rem;
+      line-height: 1.5;
+      color: var(--ink-2);
+      margin-top: 0.55rem;
     }
-    .node.core .node-k { color: #f0a077; }
-    .node-t { font-family: var(--display); font-size: clamp(1.25rem, 1.9vw, 1.7rem); line-height: 1.05; }
-    .node-t em { font-style: italic; color: var(--acc); }
-    .node.core .node-t em { color: #f0a077; }
-    .node-d { font-size: 0.8rem; font-weight: 300; line-height: 1.55; color: var(--ink-2); }
-    .node.core .node-d { color: rgba(244, 240, 228, 0.75); }
-    .duct {
+    .fig figcaption b { color: var(--ink); font-weight: 700; }
+
+    figure.fig-float {
+      float: right;
+      width: min(288px, 40%);
+      margin: 0.35rem 0 1.1rem 1.9rem;
+    }
+    figure.fig-center {
+      width: min(340px, 74%);
+      margin: clamp(2rem, 5vw, 3rem) auto clamp(1.2rem, 3vw, 1.8rem);
+    }
+    figure.fig-center figcaption { text-align: center; }
+
+    /* ---------- generic prose ---------- */
+    p { margin-bottom: 1rem; }
+    .lead { font-size: 1.05rem; }
+    strong { font-weight: 700; }
+    em { font-style: italic; }
+
+    /* abstract */
+    .abstract {
+      margin: 0 auto clamp(2.4rem, 5vw, 3.4rem);
+      max-width: 62ch;
+      font-size: 0.98rem;
+      line-height: 1.62;
+      color: var(--ink-2);
+      text-align: justify;
+      hyphens: auto;
+    }
+    .abstract .lab { font-weight: 700; font-style: italic; color: var(--ink); }
+
+    /* ---------- section headings (numbered like LaTeX \section) ---------- */
+    .sec { margin-top: clamp(2.6rem, 6vw, 4rem); clear: both; }
+    h2.sec-h {
+      font-weight: 700;
+      font-size: clamp(1.35rem, 2.6vw, 1.7rem);
+      line-height: 1.2;
+      letter-spacing: -0.005em;
+      margin-bottom: 1.1rem;
+    }
+    h2.sec-h .no {
+      font-variant-numeric: tabular-nums;
+      margin-right: 0.7em;
+      color: var(--ink);
+    }
+    .sec > p, .sec > .thm, .sec > .scheme, .sec > .eq { max-width: 66ch; }
+
+    /* ---------- theorem / principle environment ---------- */
+    .thm {
+      border-left: 3px solid var(--link);
+      background: linear-gradient(90deg, var(--link-soft), transparent 70%);
+      padding: 0.95rem 1.2rem 1rem;
+      margin: 1.4rem 0 1.6rem;
+    }
+    .thm .lab { font-weight: 700; }
+    .thm .st { font-style: italic; }
+    .thm .qed { float: right; margin-left: 0.5em; font-style: normal; }
+
+    /* ---------- display equation ---------- */
+    .eq {
+      position: relative;
       display: flex;
       align-items: center;
-      color: var(--ink-2);
-      padding-inline: clamp(6px, 1.4vw, 16px);
+      justify-content: center;
+      gap: 0.55em;
+      margin: 1.9rem 0;
+      font-size: clamp(1.15rem, 2.1vw, 1.5rem);
+      line-height: 1;
     }
-    .duct svg { width: clamp(30px, 4vw, 52px); height: 14px; }
-    .sys-cap {
-      margin-top: 1.6rem;
+    .eq .num {
+      position: absolute;
+      right: 0;
+      color: var(--ink-3);
+      font-size: 0.72em;
+    }
+    .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; }
+    .frac .over { padding: 0 0.55em 0.14em; }
+    .frac .under { border-top: 1.4px solid currentColor; padding: 0.16em 0.55em 0; }
+    .eq .op { color: var(--ink-2); }
+    .eq .to { color: var(--link); font-size: 0.9em; }
+    .eq-note { text-align: center; font-size: 0.85rem; color: var(--ink-3); margin-top: -0.4rem; font-style: italic; }
+
+    /* ---------- inline scheme (arrow diagram) ---------- */
+    .scheme {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4em 0.7em;
+      margin: 1.7rem 0;
+      font-size: clamp(0.95rem, 1.9vw, 1.15rem);
+      text-align: center;
+    }
+    .scheme .box {
+      border: 1px solid var(--ink);
+      padding: 0.32em 0.7em;
+      white-space: nowrap;
+    }
+    .scheme .box.core { background: var(--ink); color: var(--paper); }
+    .scheme .node { white-space: nowrap; color: var(--ink-2); }
+    .scheme .arr { display: inline-flex; flex-direction: column; align-items: center; color: var(--link); line-height: 1; }
+    .scheme .arr .lbl { font-family: var(--mono); font-size: 0.56em; letter-spacing: 0.04em; color: var(--ink-3); text-transform: uppercase; margin-bottom: 1px; }
+    .scheme .arr .sym { font-size: 1.15em; }
+
+    /* ---------- booktabs table ---------- */
+    .table-wrap { margin: 1.2rem 0 0.6rem; overflow-x: auto; }
+    table.book {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    table.book thead th {
       font-family: var(--mono);
-      font-size: 0.68rem;
+      font-weight: 400;
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      text-align: left;
+      padding: 0.35rem 0.9rem 0.4rem 0;
+      white-space: nowrap;
+    }
+    table.book thead { border-top: 2px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    table.book tbody tr { border-bottom: 1px solid var(--line-soft); }
+    table.book tbody tr:last-child { border-bottom: 2px solid var(--rule); }
+    table.book td { padding: 0.6rem 0.9rem 0.6rem 0; vertical-align: baseline; }
+    table.book td:last-child, table.book th:last-child { padding-right: 0; }
+    .col-no { width: 1.6rem; color: var(--ink-3); font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 0.82rem; }
+    .col-proj { font-weight: 700; white-space: nowrap; }
+    .col-focus { color: var(--ink-2); }
+    .col-dom { text-align: right; white-space: nowrap; font-family: var(--mono); font-size: 0.8rem; }
+    .col-dom a { text-decoration: none; }
+    .col-dom a::after { content: " \2197"; color: var(--link); }
+    .grp-row td {
+      font-family: var(--mono);
+      font-size: 0.62rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--ink-3);
-      line-height: 1.8;
+      padding-top: 1.1rem;
+      padding-bottom: 0.2rem;
     }
-    .sys-cap::before { content: "▸  "; color: var(--acc); white-space: pre; }
-    .sys-cap b { color: var(--ink-2); font-weight: 700; }
+    .live { color: var(--link); }
+    .tcap {
+      font-size: 0.86rem;
+      color: var(--ink-2);
+      margin: 1.2rem 0 0;
+      max-width: 66ch;
+    }
+    .tcap b { color: var(--ink); font-weight: 700; }
+    .tnote {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      line-height: 1.7;
+      color: var(--ink-2);
+      margin-top: 0.9rem;
+    }
+    .tnote .dag { color: var(--ink-3); }
+    .tnote a { text-decoration: none; }
+    .tnote a:hover { text-decoration: underline; }
 
-    /* ---------- ledger (currently building) ---------- */
-    .building { padding-block: clamp(3.5rem, 8vh, 6rem) clamp(3rem, 7vh, 5rem); }
-    .build-grid {
+    /* ---------- bibliography (elsewhere) ---------- */
+    ol.refs { list-style: none; margin-top: 0.4rem; }
+    ol.refs li {
       position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
-      gap: clamp(2.4rem, 5vw, 4.5rem);
-      align-items: start;
+      padding-left: 2.6rem;
+      margin-bottom: 0.85rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--ink-2);
     }
-
-    .ledger-group {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      padding-bottom: 10px;
-    }
-    .ledger-group:not(:first-child) { padding-top: 2rem; }
-
-    .row {
-      --vc: var(--acc);
-      display: grid;
-      grid-template-columns: 2.6rem auto 1fr auto;
-      align-items: baseline;
-      gap: 14px;
-      padding-block: 15px;
-      border-top: 1px solid var(--line);
-      text-decoration: none;
+    ol.refs li .rn {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-variant-numeric: tabular-nums;
       color: var(--ink);
-      transition: background 0.2s ease;
     }
-    .row:last-of-type { border-bottom: 1px solid var(--line); }
-    .row:hover { background: var(--paper-hi); }
-    .row .idx { font-family: var(--mono); font-size: 0.66rem; color: var(--ink-3); }
-    .row .live {
-      align-self: center;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--vc);
-      box-shadow: 0 0 0 0 color-mix(in srgb, var(--vc) 55%, transparent);
-      animation: pulse 2.4s ease-out infinite;
-    }
-    .row .what { min-width: 0; font-size: 0.92rem; font-weight: 300; color: var(--ink-2); line-height: 1.45; }
-    .row .what strong { font-weight: 600; color: var(--ink); transition: color 0.2s ease; }
-    .row:hover .what strong { color: var(--vc); }
-    .row .dom {
-      font-family: var(--mono);
-      font-size: 0.64rem;
-      letter-spacing: 0.06em;
-      color: var(--ink-3);
-      white-space: nowrap;
-    }
-    .row .dom::after { content: " ↗"; color: var(--vc); }
-    .row:hover .dom { color: var(--ink-2); }
+    ol.refs li .rt { font-style: italic; color: var(--ink); }
+    ol.refs li a { word-break: break-word; }
 
-    .row.r-civic { --vc: var(--c-civic); }
-    .row.r-compras { --vc: var(--c-compras); }
-    .row.r-celiac { --vc: var(--c-celiac); }
-    .row.r-twicee { --vc: var(--c-twicee); }
-
-    /* live tools under Cinco Guatemala */
-    .tools {
+    /* ---------- correspondence / contact ---------- */
+    .corr-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      padding: 0 0 16px calc(2.6rem + 14px);
+      gap: 12px;
+      margin-top: 1.4rem;
     }
-    .chip {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--ink-2);
-      border: 1px solid var(--line);
-      background: var(--paper-hi);
-      padding: 8px 12px;
+    .cbtn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .chip::before { content: "◆"; font-size: 0.5rem; color: var(--c-civic); }
-    .chip:hover {
-      border-color: var(--c-civic);
-      color: var(--c-civic);
-      background: color-mix(in srgb, var(--c-civic) 8%, var(--paper-hi));
-      transform: translateY(-2px);
-    }
-    .chip.gluten::before { color: var(--c-celiac); }
-    .chip.gluten:hover {
-      border-color: var(--c-celiac);
-      color: var(--c-celiac);
-      background: color-mix(in srgb, var(--c-celiac) 9%, var(--paper-hi));
-    }
-
-    /* fig 02 — riso print + stamp */
-    .fig2-slot { position: relative; padding: 1.2rem 1.4rem 0 0; }
-    .fig2 {
-      transform: rotate(-2.2deg);
-      animation: rise 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
-      opacity: 0;
-    }
-    .fig2 .tape {
-      position: absolute;
-      top: -12px;
-      width: 74px;
-      height: 24px;
-      background: rgba(188, 69, 20, 0.22);
-      backdrop-filter: none;
-      transform: rotate(-4deg);
-    }
-    .fig2 .tape.t2 { left: auto; right: 18px; transform: rotate(5deg); }
-    .fig2 .tape.t1 { left: 18px; }
-    .fig2 img { aspect-ratio: 1 / 1; }
-
-    .stamp {
-      position: absolute;
-      right: -26px;
-      bottom: 52px;
-      width: 118px;
-      height: 118px;
-      z-index: 2;
-      color: var(--acc);
-      animation: spin 26s linear infinite;
-      pointer-events: none;
-    }
-    .stamp text {
-      font-family: var(--mono);
-      font-size: 10.5px;
-      letter-spacing: 2.4px;
-      text-transform: uppercase;
-      fill: currentColor;
-    }
-    .stamp .core-mark { fill: currentColor; font-size: 26px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ---------- elsewhere ---------- */
-    .elsewhere { padding-block: clamp(3rem, 7vh, 5rem); }
-    .card-grid {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
-    }
-    .card {
       border: 1px solid var(--ink);
-      background: var(--paper-hi);
-      padding: 18px;
-      min-height: 128px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 18px;
-      text-decoration: none;
-      color: var(--ink);
-      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-                  background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
-    }
-    .card:hover {
-      background: var(--ink);
-      color: var(--paper);
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 var(--acc);
-    }
-    .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-    .card-k {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      transition: color 0.25s ease;
-    }
-    .card:hover .card-k { color: #f0a077; }
-    .card-top svg { width: 16px; height: 16px; fill: currentColor; flex: none; }
-    .card-v { font-size: 1.02rem; font-weight: 500; line-height: 1.3; overflow-wrap: anywhere; }
-    .card-v small { display: block; font-size: 0.74rem; font-weight: 300; color: var(--ink-3); margin-top: 4px; transition: color 0.25s ease; }
-    .card:hover .card-v small { color: rgba(244, 240, 228, 0.65); }
-
-    /* ---------- contact ---------- */
-    .contact { padding-block: clamp(3.5rem, 8vh, 6rem) clamp(2rem, 4vh, 3rem); }
-    .contact-box {
-      position: relative;
-      z-index: 1;
-      border: 1px solid var(--ink);
-      background: var(--paper-hi);
-      box-shadow: 10px 10px 0 rgba(29, 23, 18, 0.10);
-      padding: clamp(2rem, 5vw, 3.6rem);
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: clamp(1.6rem, 4vw, 3rem);
-      align-items: center;
-    }
-    .contact-h {
-      font-family: var(--display);
-      font-size: clamp(2rem, 4.4vw, 3.4rem);
-      line-height: 1.02;
-    }
-    .contact-h em { font-style: italic; color: var(--acc); }
-    .contact-sub { margin-top: 1rem; font-size: 0.92rem; font-weight: 300; color: var(--ink-2); line-height: 1.65; max-width: 420px; }
-    .contact-side { display: flex; flex-direction: column; gap: 12px; }
-    .cbtn {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      border: 1px solid var(--ink);
-      padding: 14px 16px;
-      text-decoration: none;
-      color: var(--ink);
       background: var(--paper);
-      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: var(--ink);
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
     }
-    .cbtn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--acc); }
-    .cbtn-ico {
-      flex: none;
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      background: var(--acc-soft);
-      color: var(--acc-deep);
-      border: 1px solid rgba(188, 69, 20, 0.25);
-    }
-    .cbtn-ico svg { width: 17px; height: 17px; }
-    .cbtn-label { display: flex; flex-direction: column; min-width: 0; }
-    .cbtn-k { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 3px; }
-    .cbtn-v { font-size: 0.9rem; font-weight: 500; overflow-wrap: anywhere; }
-    .cbtn:hover .cbtn-v { color: var(--acc-deep); }
+    .cbtn:hover { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
+    .cbtn .ico { flex: none; width: 20px; height: 20px; display: grid; place-items: center; }
+    .cbtn .ico svg { width: 18px; height: 18px; stroke: currentColor; fill: none; }
+    .cbtn .lbl { display: flex; flex-direction: column; line-height: 1.25; }
+    .cbtn .k { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+    .cbtn:hover .k { color: rgba(252,252,250,0.7); }
+    .cbtn .v { font-size: 0.94rem; }
+    .cbtn.primary { background: var(--ink); color: var(--paper); }
+    .cbtn.primary .k { color: rgba(252,252,250,0.7); }
+    .cbtn.primary:hover { background: var(--link); border-color: var(--link); }
 
-    /* ---------- footer ---------- */
-    footer { padding-block: 1rem 2.2rem; }
-    .foot-name {
-      font-family: var(--display);
-      font-size: clamp(2.6rem, 9vw, 8.2rem);
-      line-height: 0.9;
-      text-align: center;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(29, 23, 18, 0.34);
-      user-select: none;
-      white-space: nowrap;
-    }
-    .foot-row {
+    /* ---------- colophon / footer ---------- */
+    footer.colophon {
+      margin-top: clamp(2.6rem, 6vw, 4rem);
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-3);
+      line-height: 1.9;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      align-items: center;
-      gap: 10px 20px;
-      border-top: 1px solid var(--line);
-      margin-top: 1.6rem;
-      padding-top: 1.1rem;
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--ink-3);
+      gap: 6px 20px;
     }
-    .foot-row a { color: var(--ink-2); text-decoration: none; }
-    .foot-row a:hover { color: var(--acc-deep); }
-    .foot-row .sig b { color: var(--ink-2); }
+    footer.colophon a { text-decoration: none; color: var(--ink-2); }
+    footer.colophon a:hover { color: var(--link-deep); }
+    footer.colophon .set em { font-style: italic; color: var(--ink-2); }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--vc, var(--acc)) 50%, transparent); }
-      70% { box-shadow: 0 0 0 8px transparent; }
-      100% { box-shadow: 0 0 0 0 transparent; }
-    }
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .fig2 { animation-name: rise2; }
-    @keyframes rise2 {
-      from { opacity: 0; transform: rotate(-2.2deg) translateY(20px); }
-      to { opacity: 1; transform: rotate(-2.2deg) translateY(0); }
-    }
+    /* ---------- logo slots (auto-appear once uploaded to assets/) ---------- */
+    .wordmark { height: 1.05em; width: auto; vertical-align: -0.14em; }
 
     /* ---------- responsive ---------- */
-    @media (max-width: 980px) {
-      .card-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 720px) {
+      body { font-size: 17px; }
+      figure.fig-float { float: none; width: 100%; max-width: 340px; margin: 1.6rem auto; }
+      figure.fig-float figcaption { text-align: center; }
+      .abstract { text-align: left; }
+      .col-focus { white-space: normal; }
     }
 
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .hero-grid .fig { max-width: 440px; }
-      .build-grid { grid-template-columns: 1fr; }
-      .fig2-slot { max-width: 400px; margin-top: 0.6rem; }
-      .schematic {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-      .duct { justify-content: center; padding-block: 6px; transform: rotate(90deg); width: 52px; margin-inline: auto; }
-      .contact-box { grid-template-columns: 1fr; }
-      .foot-name { white-space: normal; }
-    }
-
-    @media (max-width: 640px) {
-      .row { grid-template-columns: auto 1fr auto; }
-      .row .idx { display: none; }
-      .row .dom { display: none; }
-      .tools { padding-left: calc(8px + 14px); }
-      .actions .btn { flex: 1 1 100%; }
-      .card-grid { grid-template-columns: 1fr; }
-      .stamp { right: -8px; }
+    /* stack the booktabs table on narrow screens — keep the heavy rules */
+    @media (max-width: 620px) {
+      table.book { border-top: 2px solid var(--rule); }
+      table.book thead { display: none; }
+      table.book, table.book tbody, table.book tr, table.book td { display: block; width: 100%; }
+      table.book tbody tr { padding: 0.65rem 0 0.7rem; }
+      table.book td { padding: 0.06rem 0; }
+      table.book td.col-no { display: none; }
+      .col-proj { white-space: normal; }
+      .col-focus { font-size: 0.9rem; }
+      .col-dom { text-align: left; padding-top: 0.2rem; }
+      .grp-row td { padding: 1rem 0 0.1rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation: none !important; transition: none !important; }
-      .eyebrow, h1.name, .statement, .flow, .actions, .fig, .fig2 { opacity: 1 !important; }
-      .fig2 { transform: rotate(-2.2deg); }
+      .sheet { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
-  <div class="trim" aria-hidden="true"></div>
 
-  <!-- ============ top bar ============ -->
-  <header class="topbar">
-    <div class="wrap topbar-in">
-      <a class="brand" href="#top">Rudik Rompich<span class="dot"> ●</span> <span class="doc">/ doc. RR-01</span></a>
-      <nav class="topnav" aria-label="Sections">
-        <a class="nav-mid" href="#system">The system</a>
-        <a class="nav-mid" href="#building">Building</a>
-        <a class="nav-mid" href="#elsewhere">Elsewhere</a>
-        <a class="nav-mid" href="#contact">Contact</a>
-        <a class="x-link" href="https://x.com/TheRudiks" target="_blank" rel="noopener" aria-label="Rudik on X">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.6l5.24 6.93 6.06-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41Z"/></svg>
-          @TheRudiks
-        </a>
+  <!-- ============ desk toolbar ============ -->
+  <div class="toolbar">
+    <div class="toolbar-in">
+      <a class="tb-brand" href="#top">R. Rompich</a>
+      <nav class="tb-nav" aria-label="Sections">
+        <a class="opt" href="#principle"><span class="num">1</span> Principle</a>
+        <a class="opt" href="#building"><span class="num">2</span> Building</a>
+        <a class="opt" href="#elsewhere"><span class="num">3</span> Elsewhere</a>
+        <a href="#correspondence">Contact&nbsp;&darr;</a>
       </nav>
     </div>
-  </header>
+  </div>
 
-  <main id="top">
+  <main class="sheet" id="top">
 
-    <!-- ============ §01 hero ============ -->
-    <section class="hero" id="profile">
-      <div class="wrap">
-        <div class="hero-grid">
-          <div>
-            <p class="eyebrow">Founder &middot; Systems &amp; Operations</p>
-            <h1 class="name">Rudik <em>Rompich.</em></h1>
-            <p class="statement">I redesign how your company <strong>runs</strong>.</p>
-            <p class="flow">Founder of <a href="https://cincois.com" target="_blank" rel="noopener">Cinco</a>, where I architect the systems and automations that let high-growth teams <strong>scale output without scaling headcount</strong>. Working <strong>founder to founder</strong> across the US, Canada, LatAm &amp; Australia.</p>
-            <div class="actions">
-              <a class="btn btn-primary" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2D2k60mzN-EPa22NqxtK6Vm5IGt9fqlmY--K_RbDQLA056f5rxhsdyW1sM68hqqs-ri-n7LrBE" target="_blank" rel="noopener">
-                Book a working session <span class="arrow">&rarr;</span>
-              </a>
-              <a class="btn btn-ghost" href="https://www.upwork.com/freelancers/~017cffbe03216e94c3" target="_blank" rel="noopener">
-                See the work
-              </a>
-              <a class="btn btn-company" href="https://cincois.com" target="_blank" rel="noopener">
-                cincois.com — the main company <span class="arrow">&#8599;</span>
-              </a>
-            </div>
-          </div>
-
-          <figure class="fig">
-            <span class="marks" aria-hidden="true"><span>+</span><span>+</span><span>+</span><span>+</span></span>
-            <picture>
-              <source type="image/webp"
-                      srcset="rudiks_photo-900.webp 900w, rudiks_photo-1400.webp 1400w"
-                      sizes="(max-width: 900px) 88vw, 38vw">
-              <img src="rudiks_photo-1400.jpg"
-                   srcset="rudiks_photo-900.jpg 900w, rudiks_photo-1400.jpg 1400w"
-                   sizes="(max-width: 900px) 88vw, 38vw"
-                   width="1400" height="1750"
-                   alt="Rudik Rompich" fetchpriority="high" decoding="async"
-                   onerror="this.closest('figure').style.display='none'">
-            </picture>
-            <figcaption class="fig-cap">
-              <span><b>Fig. 01</b> — Rudik Rompich</span>
-              <span>Founder, Cinco</span>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ ticker ============ -->
-    <div class="ticker" aria-hidden="true">
-      <div class="ticker-track">
-        <span>Systems</span><span class="s">&#10035;</span><span>Operations</span><span class="s">&#10035;</span><span>Automation</span><span class="s">&#10035;</span><span>AI where it earns its place</span><span class="s">&#10035;</span><span>US — Canada — LatAm — Australia</span><span class="s">&#10035;</span><span>Founder to founder</span><span class="s">&#10035;</span><span>Systems</span><span class="s">&#10035;</span><span>Operations</span><span class="s">&#10035;</span><span>Automation</span><span class="s">&#10035;</span><span>AI where it earns its place</span><span class="s">&#10035;</span><span>US — Canada — LatAm — Australia</span><span class="s">&#10035;</span><span>Founder to founder</span><span class="s">&#10035;</span>
-      </div>
+    <div class="runhead">
+      <span>Rudik Rompich &middot; Founder&rsquo;s Note &#8470;01</span>
+      <a href="https://rudiks.com/">rudiks.com</a>
     </div>
 
-    <!-- ============ §02 the system ============ -->
-    <section class="system" id="system">
-      <span class="ghost-n" aria-hidden="true">02</span>
-      <div class="wrap">
-        <h2 class="sec-head"><span class="n">§02</span> Operating principle</h2>
-        <div class="schematic">
-          <div class="node">
-            <span class="node-k">Input</span>
-            <span class="node-t">Bottlenecks</span>
-            <span class="node-d">Manual work, tribal knowledge, headcount pressure.</span>
-          </div>
-          <div class="duct" aria-hidden="true">
-            <svg viewBox="0 0 52 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 7h44" stroke-dasharray="4 4"/><path d="M43 2l7 5-7 5" fill="currentColor" stroke="none"/></svg>
-          </div>
-          <div class="node core">
-            <span class="node-k">The system</span>
-            <span class="node-t">Designed &middot; automated &middot; <em>measured</em></span>
-            <span class="node-d">Workflows rebuilt end-to-end — AI where it earns its place, not where it&rsquo;s a buzzword.</span>
-          </div>
-          <div class="duct" aria-hidden="true">
-            <svg viewBox="0 0 52 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 7h44" stroke-dasharray="4 4"/><path d="M43 2l7 5-7 5" fill="currentColor" stroke="none"/></svg>
-          </div>
-          <div class="node">
-            <span class="node-k">Output</span>
-            <span class="node-t"><em>Leverage</em></span>
-            <span class="node-d">Fewer bottlenecks. Faster throughput. A calmer company.</span>
-          </div>
-        </div>
-        <p class="sys-cap">Same headcount &middot; <b>more output</b> — that&rsquo;s the whole trade.</p>
+    <!-- ============ masthead ============ -->
+    <div class="masthead">
+      <p class="eyebrow">Working note &middot; Systems &amp; operations &middot; Guatemala City</p>
+      <h1 class="title">Rudik Rompich</h1>
+      <p class="subtitle">I redesign how your company runs.</p>
+      <p class="byline">
+        Founder,
+        <!-- Drop-in slot: upload SVG to assets/cincois-wordmark.svg and it replaces this text automatically -->
+        <a href="https://cincois.com" target="_blank" rel="noopener">Cinco Innovative Solutions</a><sup><a href="#correspondence" style="text-decoration:none">&#8224;</a></sup>
+      </p>
+      <p class="affil"><span style="white-space:nowrap">Systems &middot; Operations &middot; Automation</span> <span style="white-space:nowrap">&nbsp;|&nbsp; Compiled July 2026</span></p>
+      <hr class="masthead-rule">
+    </div>
+
+    <!-- Figure 1 — floated portrait plate -->
+    <figure class="fig fig-float">
+      <picture>
+        <source type="image/webp" srcset="rudiks_plate-880.webp">
+        <img src="rudiks_plate-880.jpg" width="880" height="880"
+             alt="Rudik Rompich, founder of Cinco" loading="eager" decoding="async"
+             onerror="this.closest('figure').style.display='none'">
+      </picture>
+      <figcaption><b>Figure 1.</b> R. Rompich &mdash; founder, Cinco. Working founder-to-founder across the US, Canada, LatAm &amp; Australia.</figcaption>
+    </figure>
+
+    <!-- ============ abstract ============ -->
+    <p class="abstract">
+      <span class="lab">Abstract.</span>
+      Rudik Rompich is the founder of <a href="https://cincois.com" target="_blank" rel="noopener">Cinco</a>,
+      where he redesigns how high-growth companies run &mdash; architecting the systems and automations that
+      <em>scale output without scaling headcount</em>. This note states the operating principle,
+      tabulates the work currently in progress, and gives the address for correspondence.
+      AI is applied where it earns its place, not where it is a buzzword.
+    </p>
+
+    <!-- ============ §1 principle ============ -->
+    <section class="sec" id="principle">
+      <h2 class="sec-h"><span class="no">1</span>Operating principle</h2>
+
+      <div class="thm">
+        <span class="lab">Principle 1 (Leverage).</span>
+        <span class="st">Output can grow while headcount is held fixed. The multiplier between them is the
+        system you put in place &mdash; and a system can be designed.</span>
+        <span class="qed">&#8718;</span>
+      </div>
+
+      <div class="eq" role="img" aria-label="leverage equals output over headcount, to be maximized">
+        <span class="op">leverage</span>
+        <span class="op">=</span>
+        <span class="frac"><span class="over">output</span><span class="under">headcount</span></span>
+        <span class="to">&#10230;&nbsp;max</span>
+        <span class="num">(1)</span>
+      </div>
+      <p class="eq-note">maximize the numerator with the denominator held constant.</p>
+
+      <p>
+        Most teams try to grow output by adding people. That raises the denominator too, so the ratio barely
+        moves &mdash; and coordination cost quietly eats the gain. The alternative is to attack the
+        <strong>system</strong> in the middle: find the bottleneck, redesign the workflow end-to-end, and
+        automate the parts that shouldn&rsquo;t need a human.
+      </p>
+
+      <div class="scheme" role="img" aria-label="bottlenecks, through a designed and automated system, produce leverage">
+        <span class="node">bottlenecks</span>
+        <span class="arr"><span class="lbl">design</span><span class="sym">&#10230;</span></span>
+        <span class="box core">the&nbsp;system</span>
+        <span class="arr"><span class="lbl">automate</span><span class="sym">&#10230;</span></span>
+        <span class="node">leverage</span>
+      </div>
+
+      <p>
+        The result is boring in the best way: fewer bottlenecks, faster throughput, and a calmer company
+        that ships more with the same team. Same headcount, more output &mdash; that is the whole trade.
+      </p>
+    </section>
+
+    <!-- ============ §2 currently building ============ -->
+    <section class="sec" id="building">
+      <h2 class="sec-h"><span class="no">2</span>Currently building</h2>
+
+      <p class="tcap" id="tab1-cap"><b>Table 1.</b> Active projects and where they run. Filled markers (<span class="live">&#9679;</span>) denote live systems.</p>
+      <div class="table-wrap">
+        <table class="book" aria-describedby="tab1-cap">
+          <thead>
+            <tr>
+              <th class="col-no" scope="col">№</th>
+              <th scope="col">Project</th>
+              <th scope="col">Focus</th>
+              <th class="col-dom" scope="col">Domain</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="grp-row"><td colspan="4">Ventures</td></tr>
+            <tr>
+              <td class="col-no">1</td>
+              <td class="col-proj"><span class="live" aria-hidden="true">&#9679;</span>&nbsp;Cinco Guatemala</td>
+              <td class="col-focus">Public-policy laboratory</td>
+              <td class="col-dom"><a href="https://www.cinco.org.gt" target="_blank" rel="noopener">cinco.org.gt</a></td>
+            </tr>
+            <tr>
+              <td class="col-no">2</td>
+              <td class="col-proj"><span class="live" aria-hidden="true">&#9679;</span>&nbsp;GuateCompras Licita</td>
+              <td class="col-focus">SaaS for winning government tenders</td>
+              <td class="col-dom"><a href="https://guatecompras.cinco.org.gt" target="_blank" rel="noopener">guatecompras.cinco.org.gt</a></td>
+            </tr>
+            <tr class="grp-row"><td colspan="4">Personal causes</td></tr>
+            <tr>
+              <td class="col-no">3</td>
+              <td class="col-proj"><span class="live" aria-hidden="true">&#9679;</span>&nbsp;Celiacos Guatemala</td>
+              <td class="col-focus">Resources for the celiac community</td>
+              <td class="col-dom"><a href="https://celiacos.com.gt" target="_blank" rel="noopener">celiacos.com.gt</a></td>
+            </tr>
+            <tr>
+              <td class="col-no">4</td>
+              <td class="col-proj"><span class="live" aria-hidden="true">&#9679;</span>&nbsp;Twicee</td>
+              <td class="col-focus">A guide to twice-exceptionality (2e)</td>
+              <td class="col-dom"><a href="https://www.twicee.org/" target="_blank" rel="noopener">twicee.org</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="tnote">
+        <span class="dag">&#8224;</span> Cinco Guatemala also ships public tools:
+        <a href="https://inflacion.cinco.org.gt/" target="_blank" rel="noopener">Inflaci&oacute;n</a>,
+        <a href="https://remesas.cinco.org.gt/" target="_blank" rel="noopener">Remesas</a>,
+        <a href="https://congreso.cinco.org.gt/" target="_blank" rel="noopener">Congreso</a>,
+        <a href="https://pisto.cinco.org.gt/" target="_blank" rel="noopener">Pisto</a>, and
+        <a href="https://singluten.cinco.org.gt" target="_blank" rel="noopener">Sin Gluten</a>.
+      </p>
+    </section>
+
+    <!-- Figure 2 — color portrait -->
+    <figure class="fig fig-center">
+      <picture>
+        <source type="image/webp" srcset="rudiks_photo-900.webp 900w, rudiks_photo-1400.webp 1400w" sizes="(max-width: 720px) 74vw, 340px">
+        <img src="rudiks_photo-1400.jpg"
+             srcset="rudiks_photo-900.jpg 900w, rudiks_photo-1400.jpg 1400w"
+             sizes="(max-width: 720px) 74vw, 340px"
+             width="1400" height="1750"
+             alt="Rudik Rompich" loading="lazy" decoding="async"
+             onerror="this.closest('figure').style.display='none'">
+      </picture>
+      <figcaption><b>Figure 2.</b> The same operator, off the whiteboard.</figcaption>
+    </figure>
+
+    <!-- ============ §3 elsewhere ============ -->
+    <section class="sec" id="elsewhere">
+      <h2 class="sec-h"><span class="no">3</span>Elsewhere</h2>
+      <p>Selected profiles, in the usual bibliographic order.</p>
+      <ol class="refs">
+        <li><span class="rn">[1]</span> R. Rompich. <span class="rt">X (Twitter)</span> &mdash; thinking out loud, in public. Handle <a href="https://x.com/TheRudiks" target="_blank" rel="noopener">@TheRudiks</a>.</li>
+        <li><span class="rn">[2]</span> R. Rompich. <span class="rt">LinkedIn</span> &mdash; career &amp; company record. <a href="https://www.linkedin.com/in/therudiks/" target="_blank" rel="noopener">linkedin.com/in/therudiks</a>.</li>
+        <li><span class="rn">[3]</span> R. Rompich. <span class="rt">Upwork</span> &mdash; delivered projects, reviews &amp; receipts. <a href="https://www.upwork.com/freelancers/~017cffbe03216e94c3" target="_blank" rel="noopener">upwork.com/freelancers/&sim;017cffbe03…</a>.</li>
+        <li><span class="rn">[4]</span> R. Rompich. <span class="rt">snorlaxturing.com</span> &mdash; the personal, unhurried corner, off the clock. <a href="https://snorlaxturing.com" target="_blank" rel="noopener">snorlaxturing.com</a>.</li>
+      </ol>
+    </section>
+
+    <!-- ============ §4 correspondence ============ -->
+    <section class="sec" id="correspondence">
+      <h2 class="sec-h"><span class="no">4</span>Correspondence</h2>
+      <p>
+        Bring the messiest process you own. The first working session is exactly that &mdash; a working
+        session, not a sales call. Correspondence should be addressed to
+        <a id="email-inline" href="#">the address below</a>; sessions may be booked directly.
+      </p>
+      <div class="corr-actions">
+        <!-- email injected by JS (anti-scraping) -->
+        <a class="cbtn" id="email-btn" aria-label="Email Rudik"></a>
+        <a class="cbtn primary" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2D2k60mzN-EPa22NqxtK6Vm5IGt9fqlmY--K_RbDQLA056f5rxhsdyW1sM68hqqs-ri-n7LrBE" target="_blank" rel="noopener">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18"/><path d="M8 2.5v4M16 2.5v4"/><path d="m10 14.5 2 2 3.5-4"/></svg>
+          </span>
+          <span class="lbl"><span class="k">Calendar</span><span class="v">Book a working session</span></span>
+        </a>
       </div>
     </section>
 
-    <!-- ============ §03 currently building ============ -->
-    <section class="building" id="building">
-      <span class="ghost-n" aria-hidden="true">03</span>
-      <div class="wrap">
-        <h2 class="sec-head"><span class="n">§03</span> Currently building</h2>
-        <div class="build-grid">
-          <div>
-            <p class="ledger-group">Ventures</p>
-            <a class="row r-civic" href="https://www.cinco.org.gt" target="_blank" rel="noopener">
-              <span class="idx">A·01</span>
-              <span class="live" aria-hidden="true"></span>
-              <span class="what"><strong>Cinco Guatemala</strong> — public policy laboratory</span>
-              <span class="dom">cinco.org.gt</span>
-            </a>
-            <div class="tools" aria-label="Live tools by Cinco Guatemala">
-              <a class="chip" href="https://inflacion.cinco.org.gt/" target="_blank" rel="noopener">Inflaci&oacute;n</a>
-              <a class="chip" href="https://remesas.cinco.org.gt/" target="_blank" rel="noopener">Remesas</a>
-              <a class="chip" href="https://congreso.cinco.org.gt/" target="_blank" rel="noopener">Congreso</a>
-              <a class="chip" href="https://pisto.cinco.org.gt/" target="_blank" rel="noopener">Pisto</a>
-              <a class="chip gluten" href="https://singluten.cinco.org.gt" target="_blank" rel="noopener">Sin Gluten</a>
-            </div>
-            <a class="row r-compras" href="https://guatecompras.cinco.org.gt" target="_blank" rel="noopener">
-              <span class="idx">A·02</span>
-              <span class="live" aria-hidden="true"></span>
-              <span class="what"><strong>GuateCompras Licita</strong> — SaaS for winning government tenders</span>
-              <span class="dom">guatecompras.cinco.org.gt</span>
-            </a>
-
-            <p class="ledger-group">Personal causes</p>
-            <a class="row r-celiac" href="https://celiacos.com.gt" target="_blank" rel="noopener">
-              <span class="idx">B·01</span>
-              <span class="live" aria-hidden="true"></span>
-              <span class="what"><strong>Celiacos Guatemala</strong> — for Guatemala&rsquo;s celiac community</span>
-              <span class="dom">celiacos.com.gt</span>
-            </a>
-            <a class="row r-twicee" href="https://www.twicee.org/" target="_blank" rel="noopener">
-              <span class="idx">B·02</span>
-              <span class="live" aria-hidden="true"></span>
-              <span class="what"><strong>Twicee</strong> — a guide to twice-exceptionality (2e)</span>
-              <span class="dom">twicee.org</span>
-            </a>
-          </div>
-
-          <div class="fig2-slot">
-            <figure class="fig fig2">
-              <span class="tape t1" aria-hidden="true"></span>
-              <span class="tape t2" aria-hidden="true"></span>
-              <picture>
-                <source type="image/webp" srcset="rudiks_print-880.webp">
-                <img src="rudiks_print-880.jpg" width="880" height="880"
-                     alt="Rudik Rompich — vermillion print portrait" loading="lazy" decoding="async"
-                     onerror="this.closest('figure').style.display='none'">
-              </picture>
-              <figcaption class="fig-cap">
-                <span><b>Fig. 02</b> — Same operator</span>
-                <span>Different ink</span>
-              </figcaption>
-            </figure>
-            <svg class="stamp" viewBox="0 0 120 120" aria-hidden="true">
-              <defs><path id="ring" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
-              <text><textPath href="#ring">Guatemala City &#183; runs worldwide &#183; est. RR &#183;</textPath></text>
-              <text class="core-mark" x="60" y="69" text-anchor="middle">&#10035;</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ §04 elsewhere ============ -->
-    <section class="elsewhere" id="elsewhere">
-      <span class="ghost-n" aria-hidden="true">04</span>
-      <div class="wrap">
-        <h2 class="sec-head"><span class="n">§04</span> Elsewhere on the internet</h2>
-        <div class="card-grid">
-          <a class="card" href="https://x.com/TheRudiks" target="_blank" rel="noopener">
-            <span class="card-top">
-              <span class="card-k">X / daily signal</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.6l5.24 6.93 6.06-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41Z"/></svg>
-            </span>
-            <span class="card-v">@TheRudiks<small>thinking out loud, in public</small></span>
-          </a>
-          <a class="card" href="https://www.linkedin.com/in/therudiks/" target="_blank" rel="noopener">
-            <span class="card-top">
-              <span class="card-k">LinkedIn / the record</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-            </span>
-            <span class="card-v">/in/therudiks<small>career &amp; company updates</small></span>
-          </a>
-          <a class="card" href="https://www.upwork.com/freelancers/~017cffbe03216e94c3" target="_blank" rel="noopener">
-            <span class="card-top">
-              <span class="card-k">Upwork / the receipts</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.56 7.06c-1.88 0-3.36 1.22-3.94 3.2-.9-1.42-1.6-3.08-2.02-4.5H10v5.48c0 1.36-1.1 2.46-2.46 2.46S5.08 12.6 5.08 11.24V5.76H2.5v5.48c0 2.78 2.26 5.06 5.04 5.06s5.04-2.28 5.04-5.06v-.92c.5 1.04 1.12 2.1 1.86 3.04l-1.58 7.48h2.64l1.14-5.4c1 .64 2.15 1.04 3.92 1.04 3.02 0 5.44-2.46 5.44-5.48s-2.42-5.44-5.44-5.44zm0 8.3c-1.12 0-2.18-.48-3.14-1.24l.24-1.14v-.04c.22-1.18.86-3.26 2.9-3.26 1.6 0 2.9 1.3 2.9 2.9s-1.3 2.78-2.9 2.78z"/></svg>
-            </span>
-            <span class="card-v">See the work<small>reviews &amp; delivered projects</small></span>
-          </a>
-          <a class="card" href="https://snorlaxturing.com" target="_blank" rel="noopener">
-            <span class="card-top">
-              <span class="card-k">Side quest / off the clock</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-10 10c0 1.42.3 2.77.83 4h4.92a4.3 4.3 0 0 1 8.5 0h4.92c.53-1.23.83-2.58.83-4A10 10 0 0 0 12 2zM8.6 10.4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm6.8 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM3.94 18a10.03 10.03 0 0 0 16.12 0h-3.4a2.8 2.8 0 0 0-2.66-2 2.8 2.8 0 0 0-2.66 2h-3.4z" transform="scale(1)"/></svg>
-            </span>
-            <span class="card-v">snorlaxturing.com<small>the personal, unhurried corner</small></span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ §05 contact ============ -->
-    <section class="contact" id="contact">
-      <span class="ghost-n" aria-hidden="true">05</span>
-      <div class="wrap">
-        <div class="contact-box">
-          <div>
-            <h2 class="contact-h">Have a bottleneck<br><em>in mind?</em></h2>
-            <p class="contact-sub">Bring the messiest process you own. First working session is exactly that — a working session, not a sales call.</p>
-          </div>
-          <div class="contact-side">
-            <!-- email injected by JS below (anti-scraping) -->
-            <a class="cbtn" id="email-btn" aria-label="Email Rudik"></a>
-            <a class="cbtn" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2D2k60mzN-EPa22NqxtK6Vm5IGt9fqlmY--K_RbDQLA056f5rxhsdyW1sM68hqqs-ri-n7LrBE" target="_blank" rel="noopener">
-              <span class="cbtn-ico">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18"/><path d="M8 2.5v4M16 2.5v4"/><path d="m10 14.5 2 2 3.5-4"/></svg>
-              </span>
-              <span class="cbtn-label">
-                <span class="cbtn-k">Calendar</span>
-                <span class="cbtn-v">Book a working session</span>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- ============ colophon ============ -->
+    <footer class="colophon">
+      <span class="set">&copy; 2026 Rudik Rompich &middot; Set in <em>Latin Modern</em> &amp; Computer Modern Typewriter.</span>
+      <span>
+        <a href="https://x.com/TheRudiks" target="_blank" rel="noopener">X</a> &middot;
+        <a href="https://www.linkedin.com/in/therudiks/" target="_blank" rel="noopener">LinkedIn</a> &middot;
+        <a href="#top">Top &uarr;</a>
+      </span>
+    </footer>
 
   </main>
-
-  <!-- ============ footer ============ -->
-  <footer>
-    <div class="wrap">
-      <div class="foot-name" aria-hidden="true">Rudik Rompich</div>
-      <div class="foot-row">
-        <span>&copy; 2026 Rudik Rompich</span>
-        <span class="sig">Guatemala City &rarr; <b>worldwide</b></span>
-        <span>
-          <a href="https://x.com/TheRudiks" target="_blank" rel="noopener">X</a> &nbsp;&middot;&nbsp;
-          <a href="https://www.linkedin.com/in/therudiks/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;&middot;&nbsp;
-          <a href="#top">Top &uarr;</a>
-        </span>
-      </div>
-    </div>
-  </footer>
 
   <script>
     (function () {
       var addr = "rudik" + "@" + "cincois.com";
       var btn = document.getElementById("email-btn");
+      var inline = document.getElementById("email-inline");
+      if (inline) inline.href = "mailto:" + addr;
       if (!btn) return;
       btn.href = "mailto:" + addr;
       btn.innerHTML =
-        '<span class="cbtn-ico">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<span class="ico">' +
+          '<svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
             '<rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m4 7 8 5.5L20 7"/>' +
           '</svg>' +
         '</span>' +
-        '<span class="cbtn-label">' +
-          '<span class="cbtn-k">Email</span>' +
-          '<span class="cbtn-v">' + addr + '</span>' +
-        '</span>';
+        '<span class="lbl"><span class="k">Email</span><span class="v">' + addr + '</span></span>';
     })();
   </script>
 </body>
