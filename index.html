@@ -13,7 +13,7 @@
   <link rel="icon" href="favicon.ico" sizes="32x32">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <meta name="theme-color" content="#e9e7e0">
+  <meta name="theme-color" content="#ffffff">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Rudik Rompich — Founder of Cinco · Systems & Operations">
@@ -77,16 +77,16 @@
   }
   </script>
 
-  <!-- Self-hosted Latin Modern (LaTeX default serif) + Computer Modern Typewriter -->
+  <!-- Self-hosted Latin Modern (LaTeX serif) + Computer Modern Typewriter -->
   <link rel="preload" as="font" type="font/woff2" href="fonts/LatinModern-Regular.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="fonts/CMUTypewriter-Regular.woff2" crossorigin>
   <link rel="preload" as="image" type="image/webp" href="rudiks_plate-880.webp">
 
   <style>
-    /* ============================================================
-       Typeset in Latin Modern Roman & Computer Modern Typewriter.
-       A landing page set like a mathematician's working paper.
-       ============================================================ */
+    /* ==========================================================
+       Latin Modern as a landing page — not a paper.
+       White ground · near-black ink · hyperref blue accent.
+       ========================================================== */
 
     @font-face {
       font-family: "LM Roman";
@@ -125,20 +125,21 @@
     }
 
     :root {
-      --paper: #fcfcfa;          /* the sheet */
-      --desk: #e9e7e0;           /* desk behind the sheet */
-      --ink: #14130f;            /* near-black text */
-      --ink-2: #4a473f;          /* dim ink */
-      --ink-3: #86827a;          /* faint ink */
-      --line: rgba(20, 19, 15, 0.16);
-      --line-soft: rgba(20, 19, 15, 0.09);
-      --rule: rgba(20, 19, 15, 0.85);   /* booktabs rules */
-      --link: #1a3a86;           /* hyperref-style academic blue */
-      --link-deep: #12285e;
-      --link-soft: rgba(26, 58, 134, 0.10);
+      --bg: #ffffff;
+      --ink: #141412;
+      --ink-2: #5c5852;
+      --ink-3: #94908a;
+      --line: rgba(20, 20, 18, 0.14);
+      --line-strong: rgba(20, 20, 18, 0.6);
+      --acc: #1c3db8;            /* hyperref blue */
+      --acc-deep: #142c85;
+      --acc-wash: rgba(28, 61, 184, 0.07);
 
       --serif: "LM Roman", "Latin Modern Roman", "Computer Modern", Georgia, "Times New Roman", serif;
-      --mono: "CMU Typewriter", "Latin Modern Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+      --mono: "CMU Typewriter", ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+      --gutter: clamp(20px, 5vw, 64px);
+      --maxw: 1200px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -147,640 +148,665 @@
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       scroll-behavior: smooth;
-      scroll-padding-top: 64px;
+      scroll-padding-top: 76px;
       -webkit-text-size-adjust: 100%;
     }
 
     body {
       font-family: var(--serif);
+      background: var(--bg);
       color: var(--ink);
-      background: var(--desk);
-      line-height: 1.5;
       font-size: 18px;
+      line-height: 1.5;
       font-kerning: normal;
-      font-variant-ligatures: common-ligatures;
+      overflow-x: clip;
     }
 
-    ::selection { background: var(--link-soft); }
+    ::selection { background: var(--acc); color: #fff; }
 
-    a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 0.6px; text-decoration-color: rgba(26, 58, 134, 0.5); }
-    a:hover { color: var(--link-deep); text-decoration-color: currentColor; }
-    a:focus-visible, button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+    a { color: inherit; }
+    a:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
 
-    sup { line-height: 0; }
+    .wrap {
+      max-width: var(--maxw);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
 
-    /* ---------- desk toolbar (slim, outside the sheet) ---------- */
-    .toolbar {
+    /* ---------- nav ---------- */
+    .nav {
       position: sticky;
       top: 0;
-      z-index: 20;
-      background: color-mix(in srgb, var(--desk) 88%, transparent);
-      -webkit-backdrop-filter: saturate(1.1) blur(6px);
-      backdrop-filter: saturate(1.1) blur(6px);
-      border-bottom: 1px solid var(--line-soft);
-    }
-    .toolbar-in {
-      max-width: 940px;
-      margin-inline: auto;
-      height: 44px;
-      padding-inline: clamp(16px, 4vw, 40px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.06em;
-      color: var(--ink-2);
-    }
-    .toolbar-in a { text-decoration: none; color: var(--ink-2); }
-    .toolbar-in a:hover { color: var(--link-deep); }
-    .tb-brand { font-weight: 700; color: var(--ink); white-space: nowrap; }
-    .tb-nav { display: flex; align-items: center; gap: clamp(10px, 2vw, 20px); white-space: nowrap; }
-    .tb-nav .num { color: var(--ink-3); }
-    @media (max-width: 620px) { .tb-nav .opt { display: none; } }
-
-    /* ---------- the sheet ---------- */
-    .sheet {
-      max-width: 840px;
-      margin: clamp(16px, 3.5vw, 40px) auto clamp(28px, 5vw, 56px);
-      background: var(--paper);
-      border: 1px solid var(--line-soft);
-      box-shadow: 0 1px 2px rgba(20,19,15,0.06), 0 18px 50px -22px rgba(20,19,15,0.35);
-      padding: clamp(2.4rem, 6vw, 5rem) clamp(1.5rem, 6vw, 5rem) clamp(2rem, 5vw, 3.5rem);
-      opacity: 0;
-      animation: sheet-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards;
-    }
-    @keyframes sheet-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-
-    /* running head */
-    .runhead {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 12px;
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      padding-bottom: 0.7rem;
-      margin-bottom: clamp(2.2rem, 5vw, 3.6rem);
+      z-index: 50;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--line);
     }
-    .runhead a { text-decoration: none; color: var(--ink-3); }
-    .runhead a:hover { color: var(--link-deep); }
-
-    /* ---------- masthead / \maketitle ---------- */
-    .masthead { text-align: center; }
-    .eyebrow {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      margin-bottom: 1.4rem;
-    }
-    h1.title {
-      font-weight: 700;
-      font-size: clamp(2.7rem, 7.4vw, 4.6rem);
-      line-height: 1.02;
-      letter-spacing: -0.012em;
-    }
-    .subtitle {
-      font-style: italic;
-      font-size: clamp(1.3rem, 3.1vw, 1.95rem);
-      line-height: 1.28;
-      color: var(--ink-2);
-      margin-top: 0.85rem;
-    }
-    .byline {
-      margin-top: 1.5rem;
-      font-size: 1.02rem;
-    }
-    .byline a { font-weight: 400; }
-    .affil {
-      margin-top: 0.5rem;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.05em;
-      color: var(--ink-3);
-      line-height: 1.7;
-    }
-    .masthead-rule {
-      width: 46px;
-      height: 2px;
-      background: var(--rule);
-      border: 0;
-      margin: clamp(1.8rem, 4vw, 2.6rem) auto clamp(1.6rem, 4vw, 2.4rem);
-    }
-
-    /* ---------- floated portrait plate ---------- */
-    figure.fig { margin: 0; }
-    .fig img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border: 1px solid var(--ink);
-      background: var(--paper);
-    }
-    .fig figcaption {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      line-height: 1.5;
-      color: var(--ink-2);
-      margin-top: 0.55rem;
-    }
-    .fig figcaption b { color: var(--ink); font-weight: 700; }
-
-    figure.fig-float {
-      float: right;
-      width: min(288px, 40%);
-      margin: 0.35rem 0 1.1rem 1.9rem;
-    }
-    figure.fig-center {
-      width: min(340px, 74%);
-      margin: clamp(2rem, 5vw, 3rem) auto clamp(1.2rem, 3vw, 1.8rem);
-    }
-    figure.fig-center figcaption { text-align: center; }
-
-    /* ---------- generic prose ---------- */
-    p { margin-bottom: 1rem; }
-    .lead { font-size: 1.05rem; }
-    strong { font-weight: 700; }
-    em { font-style: italic; }
-
-    /* abstract */
-    .abstract {
-      margin: 0 auto clamp(2.4rem, 5vw, 3.4rem);
-      max-width: 62ch;
-      font-size: 0.98rem;
-      line-height: 1.62;
-      color: var(--ink-2);
-      text-align: justify;
-      hyphens: auto;
-    }
-    .abstract .lab { font-weight: 700; font-style: italic; color: var(--ink); }
-
-    /* ---------- section headings (numbered like LaTeX \section) ---------- */
-    .sec { margin-top: clamp(2.6rem, 6vw, 4rem); clear: both; }
-    h2.sec-h {
-      font-weight: 700;
-      font-size: clamp(1.35rem, 2.6vw, 1.7rem);
-      line-height: 1.2;
-      letter-spacing: -0.005em;
-      margin-bottom: 1.1rem;
-    }
-    h2.sec-h .no {
-      font-variant-numeric: tabular-nums;
-      margin-right: 0.7em;
-      color: var(--ink);
-    }
-    .sec > p, .sec > .thm, .sec > .scheme, .sec > .eq { max-width: 66ch; }
-
-    /* ---------- theorem / principle environment ---------- */
-    .thm {
-      border-left: 3px solid var(--link);
-      background: linear-gradient(90deg, var(--link-soft), transparent 70%);
-      padding: 0.95rem 1.2rem 1rem;
-      margin: 1.4rem 0 1.6rem;
-    }
-    .thm .lab { font-weight: 700; }
-    .thm .st { font-style: italic; }
-    .thm .qed { float: right; margin-left: 0.5em; font-style: normal; }
-
-    /* ---------- display equation ---------- */
-    .eq {
-      position: relative;
+    .nav-in {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.55em;
-      margin: 1.9rem 0;
-      font-size: clamp(1.15rem, 2.1vw, 1.5rem);
-      line-height: 1;
+      justify-content: space-between;
+      gap: 18px;
+      height: 62px;
     }
-    .eq .num {
-      position: absolute;
-      right: 0;
-      color: var(--ink-3);
-      font-size: 0.72em;
+    .nav-name {
+      font-weight: 700;
+      font-size: 1.06rem;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
     }
-    .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; }
-    .frac .over { padding: 0 0.55em 0.14em; }
-    .frac .under { border-top: 1.4px solid currentColor; padding: 0.16em 0.55em 0; }
-    .eq .op { color: var(--ink-2); }
-    .eq .to { color: var(--link); font-size: 0.9em; }
-    .eq-note { text-align: center; font-size: 0.85rem; color: var(--ink-3); margin-top: -0.4rem; font-style: italic; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 2.6vw, 30px);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+    .nav-links a { text-decoration: none; color: var(--ink-2); transition: color 0.18s ease; }
+    .nav-links a:hover { color: var(--acc); }
+    .nav-cta {
+      color: #fff !important;
+      background: var(--ink);
+      padding: 9px 15px;
+      transition: background 0.18s ease !important;
+    }
+    .nav-cta:hover { background: var(--acc); color: #fff !important; }
+    @media (max-width: 720px) { .nav-links .opt { display: none; } }
 
-    /* ---------- inline scheme (arrow diagram) ---------- */
-    .scheme {
+    /* ---------- hero ---------- */
+    .hero { padding-block: clamp(4rem, 11vh, 7.5rem) clamp(3rem, 7vh, 5rem); }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: start;
+      margin-top: clamp(1.8rem, 4vh, 2.8rem);
+    }
+
+    .kicker {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      margin-bottom: clamp(1.6rem, 3.5vh, 2.6rem);
+      opacity: 0;
+      animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards;
+    }
+    .kicker b { color: var(--ink); font-weight: 700; }
+    .kicker a { color: var(--acc); text-decoration: none; }
+    .kicker a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    h1.thesis {
+      font-weight: 400;
+      font-size: clamp(3.1rem, 9.4vw, 8.2rem);
+      line-height: 0.99;
+      letter-spacing: -0.022em;
+      max-width: 16ch;
+      opacity: 0;
+      animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+    }
+    h1.thesis .runs {
+      font-style: italic;
+      color: var(--acc);
+      white-space: nowrap;
+    }
+
+    .hero-sub {
+      max-width: 52ch;
+      font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+      line-height: 1.6;
+      color: var(--ink-2);
+      opacity: 0;
+      animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.28s forwards;
+    }
+    .hero-sub strong { color: var(--ink); font-weight: 700; }
+    .hero-sub a { color: var(--acc); text-decoration: none; }
+    .hero-sub a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    .hero-ctas {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      justify-content: center;
-      gap: 0.4em 0.7em;
-      margin: 1.7rem 0;
-      font-size: clamp(0.95rem, 1.9vw, 1.15rem);
-      text-align: center;
+      gap: 14px 26px;
+      margin-top: clamp(1.8rem, 4vh, 2.6rem);
+      opacity: 0;
+      animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
     }
-    .scheme .box {
-      border: 1px solid var(--ink);
-      padding: 0.32em 0.7em;
-      white-space: nowrap;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 16px 26px;
+      transition: background 0.2s ease, transform 0.2s ease;
     }
-    .scheme .box.core { background: var(--ink); color: var(--paper); }
-    .scheme .node { white-space: nowrap; color: var(--ink-2); }
-    .scheme .arr { display: inline-flex; flex-direction: column; align-items: center; color: var(--link); line-height: 1; }
-    .scheme .arr .lbl { font-family: var(--mono); font-size: 0.56em; letter-spacing: 0.04em; color: var(--ink-3); text-transform: uppercase; margin-bottom: 1px; }
-    .scheme .arr .sym { font-size: 1.15em; }
-
-    /* ---------- booktabs table ---------- */
-    .table-wrap { margin: 1.2rem 0 0.6rem; overflow-x: auto; }
-    table.book {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.95rem;
-      line-height: 1.4;
-    }
-    table.book thead th {
+    .btn .ar { font-family: var(--serif); transition: transform 0.2s ease; }
+    .btn:hover { background: var(--acc); transform: translateY(-1px); }
+    .btn:hover .ar { transform: translateX(4px); }
+    .tlink {
       font-family: var(--mono);
-      font-weight: 400;
-      font-size: 0.66rem;
+      font-size: 0.76rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--ink-2);
-      text-align: left;
-      padding: 0.35rem 0.9rem 0.4rem 0;
-      white-space: nowrap;
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 3px;
+      transition: color 0.18s ease, border-color 0.18s ease;
     }
-    table.book thead { border-top: 2px solid var(--rule); border-bottom: 1px solid var(--rule); }
-    table.book tbody tr { border-bottom: 1px solid var(--line-soft); }
-    table.book tbody tr:last-child { border-bottom: 2px solid var(--rule); }
-    table.book td { padding: 0.6rem 0.9rem 0.6rem 0; vertical-align: baseline; }
-    table.book td:last-child, table.book th:last-child { padding-right: 0; }
-    .col-no { width: 1.6rem; color: var(--ink-3); font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 0.82rem; }
-    .col-proj { font-weight: 700; white-space: nowrap; }
-    .col-focus { color: var(--ink-2); }
-    .col-dom { text-align: right; white-space: nowrap; font-family: var(--mono); font-size: 0.8rem; }
-    .col-dom a { text-decoration: none; }
-    .col-dom a::after { content: " \2197"; color: var(--link); }
-    .grp-row td {
+    .tlink:hover { color: var(--acc); border-color: var(--acc); }
+
+    /* the signature: a typeset equation, small and quiet */
+    .sig-eq {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      margin-top: clamp(2.2rem, 5vh, 3.4rem);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--ink-2);
+      border-left: 2px solid var(--acc);
+      padding-left: 18px;
+      opacity: 0;
+      animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.52s forwards;
+    }
+    .sig-eq .frac { display: inline-flex; flex-direction: column; align-items: center; font-size: 0.86em; line-height: 1.15; }
+    .sig-eq .frac .over { padding-inline: 0.4em; }
+    .sig-eq .frac .under { border-top: 1px solid currentColor; padding-inline: 0.4em; }
+    .sig-eq .max { color: var(--acc); font-style: normal; }
+
+    /* hero portrait — small, anchored, not the show */
+    .hero-por {
+      width: clamp(190px, 21vw, 300px);
+      opacity: 0;
+      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
+    }
+    .hero-por img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border: 1px solid var(--line-strong);
+    }
+    .hero-por .cap {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-top: 9px;
+      line-height: 1.6;
+    }
+
+    /* ---------- fact strip ---------- */
+    .strip { border-block: 1px solid var(--line); }
+    .strip-in {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px clamp(20px, 4vw, 54px);
+      padding-block: 15px;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+    }
+    .strip-in .d { color: var(--acc); }
+
+    /* ---------- sections ---------- */
+    .sec { padding-block: clamp(3.4rem, 8vh, 6rem); }
+    .sec + .sec { border-top: 1px solid var(--line); }
+    .sec-grid {
+      display: grid;
+      grid-template-columns: minmax(150px, 230px) minmax(0, 1fr);
+      gap: clamp(1.6rem, 4vw, 4rem);
+      align-items: start;
+    }
+    .sec-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      position: sticky;
+      top: 82px;
+    }
+    .sec-label::before { content: "— "; color: var(--acc); }
+
+    .sec-title {
+      font-weight: 400;
+      font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+      line-height: 1.12;
+      letter-spacing: -0.012em;
+      max-width: 24ch;
+      margin-bottom: clamp(1.6rem, 3.5vw, 2.4rem);
+      text-wrap: balance;
+    }
+    .sec-title em { font-style: italic; color: var(--acc); }
+
+    /* approach — a real sequence, so numbers carry meaning */
+    .steps { display: grid; gap: 0; max-width: 640px; }
+    .step {
+      display: grid;
+      grid-template-columns: 3rem minmax(0, 1fr);
+      gap: 16px;
+      padding-block: 1.35rem;
+      border-top: 1px solid var(--line);
+    }
+    .step:last-child { border-bottom: 1px solid var(--line); }
+    .step-n {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--ink-3);
+      padding-top: 0.42em;
+    }
+    .step h3 { font-weight: 700; font-size: 1.28rem; line-height: 1.25; }
+    .step p { color: var(--ink-2); font-size: 0.98rem; line-height: 1.6; margin-top: 0.35rem; max-width: 52ch; }
+    .step p em { color: var(--ink); }
+
+    .approach-note {
+      margin-top: 1.8rem;
+      max-width: 52ch;
+      color: var(--ink-2);
+      font-size: 0.98rem;
+      line-height: 1.65;
+    }
+    .approach-note strong { color: var(--ink); }
+
+    /* ---------- building: flagship + grid ---------- */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .card {
+      grid-column: span 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border: 1px solid var(--line);
+      padding: clamp(18px, 2.6vw, 26px);
+      text-decoration: none;
+      color: var(--ink);
+      background: var(--bg);
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      border-color: var(--ink);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px -18px rgba(20, 20, 18, 0.4);
+    }
+    .card.flag { grid-column: 1 / -1; }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
       font-family: var(--mono);
       font-size: 0.62rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--ink-3);
-      padding-top: 1.1rem;
-      padding-bottom: 0.2rem;
     }
-    .live { color: var(--link); }
-    .tcap {
-      font-size: 0.86rem;
-      color: var(--ink-2);
-      margin: 1.2rem 0 0;
-      max-width: 66ch;
-    }
-    .tcap b { color: var(--ink); font-weight: 700; }
-    .tnote {
+    .card-top .dot { color: var(--acc); font-size: 0.72rem; }
+    .card h3 { font-weight: 700; font-size: clamp(1.3rem, 2vw, 1.55rem); line-height: 1.2; transition: color 0.2s ease; }
+    .card:hover h3 { color: var(--acc); }
+    .card .desc { color: var(--ink-2); font-size: 0.96rem; line-height: 1.55; max-width: 58ch; }
+    .card .dom {
+      margin-top: auto;
+      padding-top: 12px;
       font-family: var(--mono);
       font-size: 0.72rem;
-      line-height: 1.7;
-      color: var(--ink-2);
-      margin-top: 0.9rem;
-    }
-    .tnote .dag { color: var(--ink-3); }
-    .tnote a { text-decoration: none; }
-    .tnote a:hover { text-decoration: underline; }
-
-    /* ---------- bibliography (elsewhere) ---------- */
-    ol.refs { list-style: none; margin-top: 0.4rem; }
-    ol.refs li {
-      position: relative;
-      padding-left: 2.6rem;
-      margin-bottom: 0.85rem;
-      font-size: 0.95rem;
-      line-height: 1.5;
+      letter-spacing: 0.05em;
       color: var(--ink-2);
     }
-    ol.refs li .rn {
-      position: absolute;
-      left: 0;
-      top: 0;
-      font-variant-numeric: tabular-nums;
-      color: var(--ink);
-    }
-    ol.refs li .rt { font-style: italic; color: var(--ink); }
-    ol.refs li a { word-break: break-word; }
+    .card .dom::after { content: " ↗"; color: var(--acc); }
 
-    /* ---------- correspondence / contact ---------- */
-    .corr-actions {
+    /* public tools row under the cards */
+    .tools-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 1.4rem;
-    }
-    .cbtn {
-      display: inline-flex;
       align-items: center;
-      gap: 12px;
-      border: 1px solid var(--ink);
-      background: var(--paper);
-      padding: 12px 16px;
-      text-decoration: none;
-      color: var(--ink);
-      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      gap: 12px 18px;
+      margin-top: 20px;
     }
-    .cbtn:hover { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
-    .cbtn .ico { flex: none; width: 20px; height: 20px; display: grid; place-items: center; }
-    .cbtn .ico svg { width: 18px; height: 18px; stroke: currentColor; fill: none; }
-    .cbtn .lbl { display: flex; flex-direction: column; line-height: 1.25; }
-    .cbtn .k { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
-    .cbtn:hover .k { color: rgba(252,252,250,0.7); }
-    .cbtn .v { font-size: 0.94rem; }
-    .cbtn.primary { background: var(--ink); color: var(--paper); }
-    .cbtn.primary .k { color: rgba(252,252,250,0.7); }
-    .cbtn.primary:hover { background: var(--link); border-color: var(--link); }
-
-    /* ---------- colophon / footer ---------- */
-    footer.colophon {
-      margin-top: clamp(2.6rem, 6vw, 4rem);
-      padding-top: 1.1rem;
-      border-top: 1px solid var(--line);
+    .tools { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
       font-family: var(--mono);
       font-size: 0.68rem;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink-2);
+      border: 1px solid var(--line);
+      padding: 7px 12px;
+      transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .pill:hover { color: var(--acc-deep); border-color: var(--acc); background: var(--acc-wash); }
+    .tools-k {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       color: var(--ink-3);
-      line-height: 1.9;
+    }
+
+    /* ---------- elsewhere: ruled index ---------- */
+    .idx { max-width: 720px; }
+    .idx a {
+      display: grid;
+      grid-template-columns: minmax(96px, 150px) minmax(0, 1fr) auto;
+      align-items: baseline;
+      gap: 16px;
+      padding-block: 1.05rem;
+      border-top: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--ink);
+      transition: background 0.18s ease;
+    }
+    .idx a:last-child { border-bottom: 1px solid var(--line); }
+    .idx a:hover { background: var(--acc-wash); }
+    .idx .k {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+    .idx .v { font-size: 1.05rem; font-weight: 700; }
+    .idx .v small { display: block; font-weight: 400; font-size: 0.88rem; color: var(--ink-2); margin-top: 2px; }
+    .idx .ar { font-family: var(--mono); font-size: 0.85rem; color: var(--acc); transition: transform 0.18s ease; }
+    .idx a:hover .ar { transform: translate(3px, -2px); }
+
+    /* ---------- contact ---------- */
+    .contact-h {
+      font-weight: 400;
+      font-size: clamp(2.4rem, 5.6vw, 4.4rem);
+      line-height: 1.02;
+      letter-spacing: -0.018em;
+      max-width: 19ch;
+    }
+    .contact-h em { font-style: italic; color: var(--acc); }
+    .contact-sub {
+      max-width: 46ch;
+      color: var(--ink-2);
+      font-size: 1.02rem;
+      line-height: 1.65;
+      margin-top: 1.4rem;
+    }
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px 26px;
+      margin-top: 2.2rem;
+    }
+    .email-line {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      color: var(--ink-2);
+      margin-top: 1.6rem;
+    }
+    .email-line a { color: var(--acc); text-decoration: none; }
+    .email-line a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ---------- footer ---------- */
+    footer { border-top: 1px solid var(--line); }
+    .foot {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: 6px 20px;
+      gap: 8px 24px;
+      padding-block: 1.3rem 1.6rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.07em;
+      color: var(--ink-3);
     }
-    footer.colophon a { text-decoration: none; color: var(--ink-2); }
-    footer.colophon a:hover { color: var(--link-deep); }
-    footer.colophon .set em { font-style: italic; color: var(--ink-2); }
+    .foot a { color: var(--ink-2); text-decoration: none; }
+    .foot a:hover { color: var(--acc); }
+    .foot .set em { font-style: italic; }
 
-    /* ---------- logo slots (auto-appear once uploaded to assets/) ---------- */
-    .wordmark { height: 1.05em; width: auto; vertical-align: -0.14em; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: none; }
+    }
 
     /* ---------- responsive ---------- */
-    @media (max-width: 720px) {
-      body { font-size: 17px; }
-      figure.fig-float { float: none; width: 100%; max-width: 340px; margin: 1.6rem auto; }
-      figure.fig-float figcaption { text-align: center; }
-      .abstract { text-align: left; }
-      .col-focus { white-space: normal; }
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; align-items: start; }
+      .hero-por { order: -1; }
+      .cards { grid-template-columns: 1fr 1fr; }
+      .card.flag { grid-column: 1 / -1; }
+      .sec-grid { grid-template-columns: 1fr; gap: 1.3rem; }
+      .sec-label { position: static; }
     }
-
-    /* stack the booktabs table on narrow screens — keep the heavy rules */
     @media (max-width: 620px) {
-      table.book { border-top: 2px solid var(--rule); }
-      table.book thead { display: none; }
-      table.book, table.book tbody, table.book tr, table.book td { display: block; width: 100%; }
-      table.book tbody tr { padding: 0.65rem 0 0.7rem; }
-      table.book td { padding: 0.06rem 0; }
-      table.book td.col-no { display: none; }
-      .col-proj { white-space: normal; }
-      .col-focus { font-size: 0.9rem; }
-      .col-dom { text-align: left; padding-top: 0.2rem; }
-      .grp-row td { padding: 1rem 0 0.1rem; }
+      .cards { grid-template-columns: 1fr; }
+      .card.flag { grid-column: auto; }
+      .btn { width: 100%; justify-content: center; }
+      .idx a { grid-template-columns: minmax(0, 1fr) auto; }
+      .idx .k { display: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation: none !important; transition: none !important; }
-      .sheet { opacity: 1; transform: none; }
+      .kicker, h1.thesis, .hero-sub, .hero-ctas, .sig-eq, .hero-por { opacity: 1; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ============ desk toolbar ============ -->
-  <div class="toolbar">
-    <div class="toolbar-in">
-      <a class="tb-brand" href="#top">R. Rompich</a>
-      <nav class="tb-nav" aria-label="Sections">
-        <a class="opt" href="#principle"><span class="num">1</span> Principle</a>
-        <a class="opt" href="#building"><span class="num">2</span> Building</a>
-        <a class="opt" href="#elsewhere"><span class="num">3</span> Elsewhere</a>
-        <a href="#correspondence">Contact&nbsp;&darr;</a>
+  <!-- ============ nav ============ -->
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a class="nav-name" href="#top">Rudik Rompich</a>
+      <nav class="nav-links" aria-label="Site">
+        <a class="opt" href="#approach">Approach</a>
+        <a class="opt" href="#building">Building</a>
+        <a class="opt" href="#elsewhere">Elsewhere</a>
+        <a class="nav-cta" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2D2k60mzN-EPa22NqxtK6Vm5IGt9fqlmY--K_RbDQLA056f5rxhsdyW1sM68hqqs-ri-n7LrBE" target="_blank" rel="noopener">Book a session</a>
       </nav>
     </div>
-  </div>
+  </header>
 
-  <main class="sheet" id="top">
+  <main id="top">
 
-    <div class="runhead">
-      <span>Rudik Rompich &middot; Founder&rsquo;s Note &#8470;01</span>
-      <a href="https://rudiks.com/">rudiks.com</a>
-    </div>
+    <!-- ============ hero ============ -->
+    <section class="hero">
+      <div class="wrap">
+        <p class="kicker"><b>Rudik Rompich</b> &nbsp;·&nbsp; Founder of <a href="https://cincois.com" target="_blank" rel="noopener">Cinco</a> &nbsp;·&nbsp; Guatemala City → worldwide</p>
+        <h1 class="thesis">I redesign how your company <span class="runs">runs.</span></h1>
+        <div class="hero-grid">
+        <div>
+          <p class="hero-sub">At <a href="https://cincois.com" target="_blank" rel="noopener"><strong>Cinco</strong></a> I architect the systems and automations that let high-growth teams <strong>scale output without scaling headcount</strong> — working founder to founder across the US, Canada, LatAm &amp; Australia. AI where it earns its place, not where it&rsquo;s a buzzword.</p>
+          <div class="hero-ctas">
+            <a class="btn" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2D2k60mzN-EPa22NqxtK6Vm5IGt9fqlmY--K_RbDQLA056f5rxhsdyW1sM68hqqs-ri-n7LrBE" target="_blank" rel="noopener">Book a working session <span class="ar">→</span></a>
+            <a class="tlink" href="https://www.upwork.com/freelancers/~017cffbe03216e94c3" target="_blank" rel="noopener">See the work</a>
+            <a class="tlink" href="https://cincois.com" target="_blank" rel="noopener">cincois.com</a>
+          </div>
+          <div class="sig-eq" role="img" aria-label="leverage equals output over headcount — maximize it">
+            leverage&nbsp;=&nbsp;<span class="frac"><span class="over">output</span><span class="under">headcount</span></span>&nbsp;⟶&nbsp;<span class="max">max</span>
+          </div>
+        </div>
 
-    <!-- ============ masthead ============ -->
-    <div class="masthead">
-      <p class="eyebrow">Working note &middot; Systems &amp; operations &middot; Guatemala City</p>
-      <h1 class="title">Rudik Rompich</h1>
-      <p class="subtitle">I redesign how your company runs.</p>
-      <p class="byline">
-        Founder,
-        <!-- Drop-in slot: upload SVG to assets/cincois-wordmark.svg and it replaces this text automatically -->
-        <a href="https://cincois.com" target="_blank" rel="noopener">Cinco Innovative Solutions</a><sup><a href="#correspondence" style="text-decoration:none">&#8224;</a></sup>
-      </p>
-      <p class="affil"><span style="white-space:nowrap">Systems &middot; Operations &middot; Automation</span> <span style="white-space:nowrap">&nbsp;|&nbsp; Compiled July 2026</span></p>
-      <hr class="masthead-rule">
-    </div>
-
-    <!-- Figure 1 — floated portrait plate -->
-    <figure class="fig fig-float">
-      <picture>
-        <source type="image/webp" srcset="rudiks_plate-880.webp">
-        <img src="rudiks_plate-880.jpg" width="880" height="880"
-             alt="Rudik Rompich, founder of Cinco" loading="eager" decoding="async"
-             onerror="this.closest('figure').style.display='none'">
-      </picture>
-      <figcaption><b>Figure 1.</b> R. Rompich &mdash; founder, Cinco. Working founder-to-founder across the US, Canada, LatAm &amp; Australia.</figcaption>
-    </figure>
-
-    <!-- ============ abstract ============ -->
-    <p class="abstract">
-      <span class="lab">Abstract.</span>
-      Rudik Rompich is the founder of <a href="https://cincois.com" target="_blank" rel="noopener">Cinco</a>,
-      where he redesigns how high-growth companies run &mdash; architecting the systems and automations that
-      <em>scale output without scaling headcount</em>. This note states the operating principle,
-      tabulates the work currently in progress, and gives the address for correspondence.
-      AI is applied where it earns its place, not where it is a buzzword.
-    </p>
-
-    <!-- ============ §1 principle ============ -->
-    <section class="sec" id="principle">
-      <h2 class="sec-h"><span class="no">1</span>Operating principle</h2>
-
-      <div class="thm">
-        <span class="lab">Principle 1 (Leverage).</span>
-        <span class="st">Output can grow while headcount is held fixed. The multiplier between them is the
-        system you put in place &mdash; and a system can be designed.</span>
-        <span class="qed">&#8718;</span>
+        <figure class="hero-por">
+          <picture>
+            <source type="image/webp" srcset="rudiks_plate-880.webp">
+            <img src="rudiks_plate-880.jpg" width="880" height="880"
+                 alt="Rudik Rompich, founder of Cinco" fetchpriority="high" decoding="async"
+                 onerror="this.closest('figure').style.display='none'">
+          </picture>
+          <figcaption class="cap">R. Rompich<br>Founder, Cinco</figcaption>
+        </figure>
+        </div>
       </div>
-
-      <div class="eq" role="img" aria-label="leverage equals output over headcount, to be maximized">
-        <span class="op">leverage</span>
-        <span class="op">=</span>
-        <span class="frac"><span class="over">output</span><span class="under">headcount</span></span>
-        <span class="to">&#10230;&nbsp;max</span>
-        <span class="num">(1)</span>
-      </div>
-      <p class="eq-note">maximize the numerator with the denominator held constant.</p>
-
-      <p>
-        Most teams try to grow output by adding people. That raises the denominator too, so the ratio barely
-        moves &mdash; and coordination cost quietly eats the gain. The alternative is to attack the
-        <strong>system</strong> in the middle: find the bottleneck, redesign the workflow end-to-end, and
-        automate the parts that shouldn&rsquo;t need a human.
-      </p>
-
-      <div class="scheme" role="img" aria-label="bottlenecks, through a designed and automated system, produce leverage">
-        <span class="node">bottlenecks</span>
-        <span class="arr"><span class="lbl">design</span><span class="sym">&#10230;</span></span>
-        <span class="box core">the&nbsp;system</span>
-        <span class="arr"><span class="lbl">automate</span><span class="sym">&#10230;</span></span>
-        <span class="node">leverage</span>
-      </div>
-
-      <p>
-        The result is boring in the best way: fewer bottlenecks, faster throughput, and a calmer company
-        that ships more with the same team. Same headcount, more output &mdash; that is the whole trade.
-      </p>
     </section>
 
-    <!-- ============ §2 currently building ============ -->
+    <!-- ============ fact strip ============ -->
+    <div class="strip" aria-label="Working range">
+      <div class="wrap strip-in">
+        <span>US <span class="d">·</span> Canada <span class="d">·</span> LatAm <span class="d">·</span> Australia</span>
+        <span>Founder to founder</span>
+        <span>Systems <span class="d">·</span> Operations <span class="d">·</span> Automation</span>
+      </div>
+    </div>
+
+    <!-- ============ approach ============ -->
+    <section class="sec" id="approach">
+      <div class="wrap sec-grid">
+        <p class="sec-label">Approach</p>
+        <div>
+          <h2 class="sec-title">Most teams grow output by adding people. The ratio barely moves — <em>the system is the multiplier.</em></h2>
+          <div class="steps">
+            <div class="step">
+              <span class="step-n">1</span>
+              <div>
+                <h3>Find the bottleneck</h3>
+                <p>Manual work, tribal knowledge, headcount pressure — the constraint is usually one process everyone has learned to live with.</p>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-n">2</span>
+              <div>
+                <h3>Redesign the workflow end-to-end</h3>
+                <p>Not a patch on top — the process rebuilt from first principles, <em>designed, automated, measured</em>.</p>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-n">3</span>
+              <div>
+                <h3>Automate what shouldn&rsquo;t need a human</h3>
+                <p>AI and automation where they earn their place. The result is boring in the best way: fewer bottlenecks, faster throughput, a calmer company.</p>
+              </div>
+            </div>
+          </div>
+          <p class="approach-note"><strong>Same headcount, more output</strong> — that&rsquo;s the whole trade.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ building ============ -->
     <section class="sec" id="building">
-      <h2 class="sec-h"><span class="no">2</span>Currently building</h2>
-
-      <p class="tcap" id="tab1-cap"><b>Table 1.</b> Active projects and where they run. Filled markers (<span class="live">&#9679;</span>) denote live systems.</p>
-      <div class="table-wrap">
-        <table class="book" aria-describedby="tab1-cap">
-          <thead>
-            <tr>
-              <th class="col-no" scope="col">№</th>
-              <th scope="col">Project</th>
-              <th scope="col">Focus</th>
-              <th class="col-dom" scope="col">Domain</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="grp-row"><td colspan="4">Ventures</td></tr>
-            <tr>
-              <td class="col-no">1</td>
-              <td class="col-proj"><span class="live" aria-hidden="true">&#9679;</span>&nbsp;Cinco Guatemala</td>
-              <td class="col-focus">Public-policy laboratory</td>
-              <td class="col-dom"><a href="https://www.cinco.org.gt" target="_blank" rel="noopener">cinco.org.gt</a></td>
-            </tr>
-            <tr>
-              <td class="col-no">2</td>
-              <td class="col-proj"><span class="live" aria-hidden="true">&#9679;</span>&nbsp;GuateCompras Licita</td>
-              <td class="col-focus">SaaS for winning government tenders</td>
-              <td class="col-dom"><a href="https://guatecompras.cinco.org.gt" target="_blank" rel="noopener">guatecompras.cinco.org.gt</a></td>
-            </tr>
-            <tr class="grp-row"><td colspan="4">Personal causes</td></tr>
-            <tr>
-              <td class="col-no">3</td>
-              <td class="col-proj"><span class="live" aria-hidden="true">&#9679;</span>&nbsp;Celiacos Guatemala</td>
-              <td class="col-focus">Resources for the celiac community</td>
-              <td class="col-dom"><a href="https://celiacos.com.gt" target="_blank" rel="noopener">celiacos.com.gt</a></td>
-            </tr>
-            <tr>
-              <td class="col-no">4</td>
-              <td class="col-proj"><span class="live" aria-hidden="true">&#9679;</span>&nbsp;Twicee</td>
-              <td class="col-focus">A guide to twice-exceptionality (2e)</td>
-              <td class="col-dom"><a href="https://www.twicee.org/" target="_blank" rel="noopener">twicee.org</a></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="wrap sec-grid">
+        <p class="sec-label">Now building</p>
+        <div>
+          <h2 class="sec-title">Companies and causes, all running on the same principle.</h2>
+          <div class="cards">
+            <a class="card flag" href="https://www.cinco.org.gt" target="_blank" rel="noopener">
+              <span class="card-top"><span>Venture — flagship</span><span class="dot">●</span></span>
+              <h3>Cinco Guatemala</h3>
+              <p class="desc">A public-policy laboratory — open tools that make Guatemala&rsquo;s economy and congress legible to anyone.</p>
+              <span class="dom">cinco.org.gt</span>
+            </a>
+            <a class="card" href="https://guatecompras.cinco.org.gt" target="_blank" rel="noopener">
+              <span class="card-top"><span>Venture</span><span class="dot">●</span></span>
+              <h3>GuateCompras Licita</h3>
+              <p class="desc">SaaS for winning government tenders.</p>
+              <span class="dom">guatecompras.cinco.org.gt</span>
+            </a>
+            <a class="card" href="https://celiacos.com.gt" target="_blank" rel="noopener">
+              <span class="card-top"><span>Personal cause</span><span class="dot">●</span></span>
+              <h3>Celiacos Guatemala</h3>
+              <p class="desc">Resources for Guatemala&rsquo;s celiac community.</p>
+              <span class="dom">celiacos.com.gt</span>
+            </a>
+            <a class="card" href="https://www.twicee.org/" target="_blank" rel="noopener">
+              <span class="card-top"><span>Personal cause</span><span class="dot">●</span></span>
+              <h3>Twicee</h3>
+              <p class="desc">A guide to twice-exceptionality (2e).</p>
+              <span class="dom">twicee.org</span>
+            </a>
+          </div>
+          <div class="tools-row">
+            <span class="tools-k">Live public tools by Cinco Guatemala</span>
+            <div class="tools">
+              <a class="pill" href="https://inflacion.cinco.org.gt/" target="_blank" rel="noopener">Inflación</a>
+              <a class="pill" href="https://remesas.cinco.org.gt/" target="_blank" rel="noopener">Remesas</a>
+              <a class="pill" href="https://congreso.cinco.org.gt/" target="_blank" rel="noopener">Congreso</a>
+              <a class="pill" href="https://pisto.cinco.org.gt/" target="_blank" rel="noopener">Pisto</a>
+              <a class="pill" href="https://singluten.cinco.org.gt" target="_blank" rel="noopener">Sin Gluten</a>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <p class="tnote">
-        <span class="dag">&#8224;</span> Cinco Guatemala also ships public tools:
-        <a href="https://inflacion.cinco.org.gt/" target="_blank" rel="noopener">Inflaci&oacute;n</a>,
-        <a href="https://remesas.cinco.org.gt/" target="_blank" rel="noopener">Remesas</a>,
-        <a href="https://congreso.cinco.org.gt/" target="_blank" rel="noopener">Congreso</a>,
-        <a href="https://pisto.cinco.org.gt/" target="_blank" rel="noopener">Pisto</a>, and
-        <a href="https://singluten.cinco.org.gt" target="_blank" rel="noopener">Sin Gluten</a>.
-      </p>
     </section>
 
-    <!-- Figure 2 — color portrait -->
-    <figure class="fig fig-center">
-      <picture>
-        <source type="image/webp" srcset="rudiks_photo-900.webp 900w, rudiks_photo-1400.webp 1400w" sizes="(max-width: 720px) 74vw, 340px">
-        <img src="rudiks_photo-1400.jpg"
-             srcset="rudiks_photo-900.jpg 900w, rudiks_photo-1400.jpg 1400w"
-             sizes="(max-width: 720px) 74vw, 340px"
-             width="1400" height="1750"
-             alt="Rudik Rompich" loading="lazy" decoding="async"
-             onerror="this.closest('figure').style.display='none'">
-      </picture>
-      <figcaption><b>Figure 2.</b> The same operator, off the whiteboard.</figcaption>
-    </figure>
-
-    <!-- ============ §3 elsewhere ============ -->
+    <!-- ============ elsewhere ============ -->
     <section class="sec" id="elsewhere">
-      <h2 class="sec-h"><span class="no">3</span>Elsewhere</h2>
-      <p>Selected profiles, in the usual bibliographic order.</p>
-      <ol class="refs">
-        <li><span class="rn">[1]</span> R. Rompich. <span class="rt">X (Twitter)</span> &mdash; thinking out loud, in public. Handle <a href="https://x.com/TheRudiks" target="_blank" rel="noopener">@TheRudiks</a>.</li>
-        <li><span class="rn">[2]</span> R. Rompich. <span class="rt">LinkedIn</span> &mdash; career &amp; company record. <a href="https://www.linkedin.com/in/therudiks/" target="_blank" rel="noopener">linkedin.com/in/therudiks</a>.</li>
-        <li><span class="rn">[3]</span> R. Rompich. <span class="rt">Upwork</span> &mdash; delivered projects, reviews &amp; receipts. <a href="https://www.upwork.com/freelancers/~017cffbe03216e94c3" target="_blank" rel="noopener">upwork.com/freelancers/&sim;017cffbe03…</a>.</li>
-        <li><span class="rn">[4]</span> R. Rompich. <span class="rt">snorlaxturing.com</span> &mdash; the personal, unhurried corner, off the clock. <a href="https://snorlaxturing.com" target="_blank" rel="noopener">snorlaxturing.com</a>.</li>
-      </ol>
-    </section>
-
-    <!-- ============ §4 correspondence ============ -->
-    <section class="sec" id="correspondence">
-      <h2 class="sec-h"><span class="no">4</span>Correspondence</h2>
-      <p>
-        Bring the messiest process you own. The first working session is exactly that &mdash; a working
-        session, not a sales call. Correspondence should be addressed to
-        <a id="email-inline" href="#">the address below</a>; sessions may be booked directly.
-      </p>
-      <div class="corr-actions">
-        <!-- email injected by JS (anti-scraping) -->
-        <a class="cbtn" id="email-btn" aria-label="Email Rudik"></a>
-        <a class="cbtn primary" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2D2k60mzN-EPa22NqxtK6Vm5IGt9fqlmY--K_RbDQLA056f5rxhsdyW1sM68hqqs-ri-n7LrBE" target="_blank" rel="noopener">
-          <span class="ico">
-            <svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18"/><path d="M8 2.5v4M16 2.5v4"/><path d="m10 14.5 2 2 3.5-4"/></svg>
-          </span>
-          <span class="lbl"><span class="k">Calendar</span><span class="v">Book a working session</span></span>
-        </a>
+      <div class="wrap sec-grid">
+        <p class="sec-label">Elsewhere</p>
+        <div>
+          <div class="idx">
+            <a href="https://x.com/TheRudiks" target="_blank" rel="noopener">
+              <span class="k">Daily signal</span>
+              <span class="v">@TheRudiks<small>thinking out loud, in public — on X</small></span>
+              <span class="ar">↗</span>
+            </a>
+            <a href="https://www.linkedin.com/in/therudiks/" target="_blank" rel="noopener">
+              <span class="k">The record</span>
+              <span class="v">LinkedIn<small>career &amp; company updates</small></span>
+              <span class="ar">↗</span>
+            </a>
+            <a href="https://www.upwork.com/freelancers/~017cffbe03216e94c3" target="_blank" rel="noopener">
+              <span class="k">The receipts</span>
+              <span class="v">Upwork<small>delivered projects &amp; client reviews</small></span>
+              <span class="ar">↗</span>
+            </a>
+            <a href="https://snorlaxturing.com" target="_blank" rel="noopener">
+              <span class="k">Off the clock</span>
+              <span class="v">snorlaxturing.com<small>the personal, unhurried corner</small></span>
+              <span class="ar">↗</span>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ============ colophon ============ -->
-    <footer class="colophon">
-      <span class="set">&copy; 2026 Rudik Rompich &middot; Set in <em>Latin Modern</em> &amp; Computer Modern Typewriter.</span>
-      <span>
-        <a href="https://x.com/TheRudiks" target="_blank" rel="noopener">X</a> &middot;
-        <a href="https://www.linkedin.com/in/therudiks/" target="_blank" rel="noopener">LinkedIn</a> &middot;
-        <a href="#top">Top &uarr;</a>
-      </span>
-    </footer>
+    <!-- ============ contact ============ -->
+    <section class="sec" id="contact">
+      <div class="wrap sec-grid">
+        <p class="sec-label">Contact</p>
+        <div>
+          <h2 class="contact-h">Have a bottleneck <em style="white-space:nowrap">in mind?</em></h2>
+          <p class="contact-sub">Bring the messiest process you own. The first working session is exactly that — a working session, not a sales call.</p>
+          <div class="contact-row">
+            <a class="btn" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2D2k60mzN-EPa22NqxtK6Vm5IGt9fqlmY--K_RbDQLA056f5rxhsdyW1sM68hqqs-ri-n7LrBE" target="_blank" rel="noopener">Book a working session <span class="ar">→</span></a>
+          </div>
+          <!-- email injected by JS (anti-scraping) -->
+          <p class="email-line">or write to <a id="email-link" href="#">…</a></p>
+        </div>
+      </div>
+    </section>
 
   </main>
+
+  <!-- ============ footer ============ -->
+  <footer>
+    <div class="wrap foot">
+      <span class="set">© 2026 Rudik Rompich · Set in <em>Latin Modern</em>, the LaTeX typeface.</span>
+      <span>
+        <a href="https://x.com/TheRudiks" target="_blank" rel="noopener">X</a> ·
+        <a href="https://www.linkedin.com/in/therudiks/" target="_blank" rel="noopener">LinkedIn</a> ·
+        <a href="#top">Top ↑</a>
+      </span>
+    </div>
+  </footer>
 
   <script>
     (function () {
       var addr = "rudik" + "@" + "cincois.com";
-      var btn = document.getElementById("email-btn");
-      var inline = document.getElementById("email-inline");
-      if (inline) inline.href = "mailto:" + addr;
-      if (!btn) return;
-      btn.href = "mailto:" + addr;
-      btn.innerHTML =
-        '<span class="ico">' +
-          '<svg viewBox="0 0 24 24" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-            '<rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m4 7 8 5.5L20 7"/>' +
-          '</svg>' +
-        '</span>' +
-        '<span class="lbl"><span class="k">Email</span><span class="v">' + addr + '</span></span>';
+      var a = document.getElementById("email-link");
+      if (!a) return;
+      a.href = "mailto:" + addr;
+      a.textContent = addr;
     })();
   </script>
 </body>
