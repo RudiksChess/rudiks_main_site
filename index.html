@@ -57,6 +57,7 @@
         "knowsAbout": ["Systems design", "Business operations", "Workflow automation", "AI automation", "Process optimization"],
         "sameAs": [
           "https://www.linkedin.com/in/therudiks/",
+          "https://x.com/xrudik",
           "https://www.upwork.com/freelancers/~017cffbe03216e94c3"
         ]
       },
@@ -127,6 +128,7 @@
     }
 
     .page {
+      position: relative; /* positioning context for the mascot */
       display: grid;
       grid-template-columns: 1.05fr 1fr;
       min-height: 100vh;
@@ -211,7 +213,7 @@
     .photo-foot a svg { width: 14px; height: 14px; }
 
     /* full name shown alongside LinkedIn — visible signal for name searches */
-    .foot-id { display: inline-flex; align-items: center; gap: 12px; min-width: 0; }
+    .foot-id { display: inline-flex; align-items: center; gap: 14px; min-width: 0; flex-wrap: wrap; }
     .foot-name { color: var(--ink-dim); white-space: nowrap; }
     .foot-name::before {
       content: "·";
@@ -378,6 +380,95 @@
       transform: translateY(-2px);
     }
 
+    /* the CINCOIS wordmark replaces the button's text. The logo is kept in its
+       original brand colours (#262529 ink + #FF8029), so it sits on a light
+       plate — the dark letterforms would otherwise vanish into the indigo. */
+    .logo-plate {
+      display: inline-flex;
+      align-items: center;
+      flex: none;
+      background: transparent;
+    }
+    .logo-cincois {
+      height: 18px;
+      width: auto;
+      display: block;
+      color: currentColor;
+    }
+    .company-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: var(--ink-faint);
+      transition: color 0.3s ease;
+    }
+    .btn-company:hover .company-tag { color: #2a1404; }
+
+    /* CINCO wordmark sits inline with the venture label, sized to the text */
+    .logo-cinco {
+      height: 0.95em;
+      width: auto;
+      vertical-align: -0.08em;
+      margin-right: 0.3em;
+      color: var(--ink);
+    }
+    .venture-name { color: var(--ink); font-weight: 600; transition: color 0.2s ease; }
+    .venture:hover .venture-name { color: var(--vc); }
+
+    /* sleeping pixel mascot — parked in the page's upper-right (over the
+       content panel on desktop, over the photo on stacked mobile).
+       It breathes (slow squash/stretch) and puffs "z"s; hover wakes it. */
+    .snorlax {
+      position: absolute;
+      top: 26px;
+      right: 30px;
+      z-index: 4;
+      display: block;
+      /* 60px = the sprite's native width; integer scale keeps every pixel square */
+      width: 60px;
+      text-decoration: none;
+      opacity: 0;
+      animation: fadeIn 1.2s ease 1.3s forwards;
+    }
+    .snorlax-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;   /* keep the pixel grid crisp when scaled up */
+      transform-origin: 50% 100%;
+      animation: snooze 3.6s ease-in-out infinite;
+      filter: drop-shadow(0 3px 8px rgba(5, 7, 20, 0.5));
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .snorlax:hover .snorlax-img { animation-play-state: paused; transform: translateY(-4px) scale(1.06); }
+    .snorlax:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 6px; }
+
+    /* the three z's stagger up and fade, looping */
+    .snorlax-z {
+      position: absolute;
+      right: -2px;
+      top: 2px;
+      font-family: var(--body);
+      font-weight: 600;
+      color: var(--accent);
+      opacity: 0;
+      pointer-events: none;
+      animation: zfloat 3.6s ease-out infinite;
+    }
+    .snorlax-z.z1 { font-size: 0.6rem;  animation-delay: 0s; }
+    .snorlax-z.z2 { font-size: 0.75rem; animation-delay: 0.5s; }
+    .snorlax-z.z3 { font-size: 0.9rem;  animation-delay: 1s; }
+
+    @keyframes snooze {
+      0%, 100% { transform: scaleY(1) scaleX(1); }
+      50%      { transform: scaleY(0.955) scaleX(1.035); }
+    }
+    @keyframes zfloat {
+      0%   { opacity: 0; transform: translate(0, 0) rotate(-8deg); }
+      18%  { opacity: 0.9; }
+      70%  { opacity: 0; transform: translate(13px, -22px) rotate(12deg); }
+      100% { opacity: 0; transform: translate(13px, -22px) rotate(12deg); }
+    }
+
     .contact {
       border-top: 1px solid var(--line);
       padding-top: 1.9rem;
@@ -510,7 +601,7 @@
       align-items: center;
       justify-content: center;
       gap: 3px;
-      padding: 4px 3px;
+      padding: 4px 2px;
       border: 1px solid var(--line);
       border-radius: 10px;
       background: rgba(243, 244, 251, 0.02);
@@ -540,6 +631,64 @@
       padding-top: 12px;
       border-top: 1px solid var(--line);
     }
+
+    /* Personal causes — deliberately a different register from the ventures
+       card: no panel, just a hairline-led group of chips. Quieter, because
+       these aren't the business. */
+    .causes {
+      width: 100%;
+      margin-bottom: 2rem;
+      padding-left: 14px;
+      border-left: 2px solid var(--accent-soft);
+      opacity: 0;
+      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.98s forwards;
+    }
+    .causes-head {
+      display: block;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 9px;
+    }
+    .causes-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+    .cause {
+      --cc: var(--accent);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1 1 150px;
+      min-width: 0;
+      padding: 8px 11px;
+      border: 1px dashed var(--line);
+      border-radius: 9px;
+      text-decoration: none;
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                  border-color 0.25s ease, background 0.25s ease;
+    }
+    .cause:hover {
+      transform: translateY(-2px);
+      border-color: var(--cc);
+      border-style: solid;
+      background: color-mix(in srgb, var(--cc) 10%, transparent);
+    }
+    .cause:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .cause-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.25;
+      transition: color 0.25s ease;
+    }
+    .cause:hover .cause-name { color: var(--cc); }
+    .cause-desc {
+      font-size: 0.68rem;
+      line-height: 1.35;
+      color: var(--ink-faint);
+    }
+    .cause.c-celiacos  { --cc: #e6c35c; }  /* wheat gold */
+    .cause.c-singluten { --cc: #7fd1c0; }  /* clean teal */
+    .cause.c-twicee    { --cc: #b48ae8; }  /* 2e violet */
 
     .pitch.flow a {
       color: var(--ink);
@@ -571,6 +720,11 @@
       .content { padding: 8vh 7vw; }
       .brand { top: 28px; left: 28px; }
       .photo-foot { left: 28px; right: 28px; bottom: 26px; }
+    }
+
+    /* stacked layout — the mascot sleeps on the photo's top-right corner */
+    @media (max-width: 900px) {
+      .snorlax { top: 20px; right: 20px; }
     }
 
     /* phones */
@@ -619,12 +773,17 @@
       .pitch.flow { margin-top: 1rem; margin-bottom: 1.2rem; }
       .actions { margin-bottom: 1.2rem; gap: 10px; }
       .btn { padding: 12px 22px; }
+      .logo-plate { padding: 6px 10px; }
+      .logo-cincois { height: 15px; }
       .building { margin-bottom: 1.3rem; padding: 11px 16px; }
       .building-head { margin-bottom: 6px; }
       .venture + .building-head { margin-top: 9px; padding-top: 8px; }
       .venture { padding: 4px 0; font-size: 0.8rem; }
       .dashboards { margin: 6px 0 7px; }
       .dash { width: 44px; height: 44px; }
+      .causes { margin-bottom: 1.3rem; }
+      .causes-head { margin-bottom: 6px; }
+      .cause { padding: 6px 10px; }
       .contact { padding-top: 1.2rem; }
       .cbtn { padding: 9px 16px 9px 10px; }
       .cbtn-ico { width: 32px; height: 32px; }
@@ -641,11 +800,18 @@
       .pitch.flow { font-size: 0.85rem; line-height: 1.55; margin-top: 0.8rem; margin-bottom: 1.1rem; }
       .actions { margin-bottom: 1.1rem; }
       .btn { padding: 11px 20px; }
+      .logo-plate { padding: 5px 9px; }
+      .logo-cincois { height: 13px; }
       .building { margin-bottom: 0.8rem; padding: 9px 14px; }
       .venture { padding: 3px 0; font-size: 0.76rem; }
       .dashboards { margin: 5px 0 6px; }
       .dash { width: 38px; height: 38px; }
       .dash svg { width: 14px; height: 14px; }
+      .dash-name { font-size: 0.41rem; }
+      .causes { margin-bottom: 0.8rem; padding-left: 11px; }
+      .cause { padding: 5px 9px; flex-basis: 130px; }
+      .cause-name { font-size: 0.74rem; }
+      .cause-desc { font-size: 0.63rem; }
       .contact { padding-top: 1rem; }
       .cbtn { padding: 7px 14px 7px 8px; }
       .cbtn-ico { width: 28px; height: 28px; }
@@ -654,6 +820,8 @@
 
     @media (prefers-reduced-motion: reduce) {
       *, *::after { animation: none !important; opacity: 1 !important; transform: none !important; }
+      /* the z's only make sense in motion — without it they'd stack in place */
+      .snorlax-z { display: none !important; }
     }
   </style>
 </head>
@@ -679,11 +847,25 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
             LinkedIn
           </a>
+          <a href="https://x.com/xrudik" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.66l7.73-8.84L1.24 2.25h6.83l4.71 6.23 5.46-6.23zm-1.16 17.52h1.83L7.08 4.13H5.11l11.97 15.64z"/></svg>
+            @xrudik
+          </a>
           <span class="foot-name">Rudik Rompich</span>
         </span>
         <span>&copy; 2026</span>
       </div>
     </section>
+
+    <!-- sleeping pixel mascot, upper-right — links to snorlaxturing.com.
+           Hand-authored SVG (transparent by construction, no bitmap matte). -->
+      <a class="snorlax" href="https://snorlaxturing.com" target="_blank" rel="noopener" aria-label="snorlaxturing.com">
+        <span class="snorlax-z z1" aria-hidden="true">z</span>
+        <span class="snorlax-z z2" aria-hidden="true">z</span>
+        <span class="snorlax-z z3" aria-hidden="true">z</span>
+        <img class="snorlax-img" src="snorlax.png" width="60" height="48"
+             alt="" decoding="async" loading="lazy">
+      </a>
 
     <section class="content">
       <div class="inner">
@@ -703,8 +885,21 @@
           <a class="btn btn-ghost" href="https://www.upwork.com/freelancers/~017cffbe03216e94c3" target="_blank" rel="noopener">
             See the work
           </a>
-          <a class="btn btn-company" href="https://cincois.com" target="_blank" rel="noopener">
-            cincois.com — the main company <span class="arrow">&#8599;</span>
+          <a class="btn btn-company" href="https://cincois.com" target="_blank" rel="noopener" aria-label="Cincois — the main company">
+            <span class="logo-plate">
+              <svg class="logo-cincois" viewBox="0 0 373 114" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                <path d="M73.3952 40.952H88.168V100.603H73.3952V40.952Z" fill="currentColor"/>
+                <path d="M99.0208 64.8528C99.0208 49.4416 108.138 39.7648 124.557 39.7648C140.976 39.7648 150.093 49.4304 150.093 64.8528V100.603H135.32V64.8528C135.32 57.5504 131.859 53.4512 124.557 53.4512C117.254 53.4512 113.794 57.5616 113.794 64.8528V100.603H99.0208V64.8528Z" fill="currentColor"/>
+                <path d="M157.944 70.7776C157.944 52.9024 171.082 39.7648 189.685 39.7648C205.645 39.7648 217.685 49.4304 220.698 63.576H205.096C202.722 57.4608 197.155 53.4512 189.685 53.4512C179.56 53.4512 172.907 60.7536 172.907 70.7776C172.907 80.8016 179.56 88.104 189.685 88.104C197.166 88.104 202.733 84.0944 205.096 77.9792H220.698C217.685 92.1136 205.645 101.79 189.685 101.79C171.082 101.79 157.944 88.6528 157.944 70.7776Z" fill="currentColor"/>
+                <path d="M226.443 70.7776C226.443 52.9024 239.581 39.7648 258.184 39.7648C276.787 39.7648 289.925 52.9024 289.925 70.7776C289.925 88.6528 276.787 101.79 258.184 101.79C239.581 101.79 226.443 88.6528 226.443 70.7776ZM274.962 70.7776C274.962 60.7424 268.298 53.4512 258.173 53.4512C248.048 53.4512 241.395 60.7536 241.395 70.7776C241.395 80.8016 248.048 88.104 258.173 88.104C268.298 88.104 274.962 80.8016 274.962 70.7776Z" fill="currentColor"/>
+                <path d="M299.131 40.952H313.904V100.603H299.131V40.952Z" fill="#FF8029"/>
+                <path d="M322.942 82.9968H337.357C337.357 86.7376 339.642 89.112 345.387 89.112C351.133 89.112 353.418 86.7376 353.418 82.9968C353.418 79.0768 348.859 78.1584 343.382 77.1616C334.904 75.616 324.051 73.6 324.051 59.1072C324.051 47.7952 332.619 39.7648 345.488 39.7648C358.357 39.7648 366.466 47.336 366.925 58.648H353.059C352.97 55.1872 350.774 52.4432 345.667 52.4432C340.56 52.4432 338.275 55.456 338.275 58.5584C338.275 62.4784 342.834 63.3968 348.4 64.3936C356.968 65.9392 367.832 67.9552 367.832 82.4592C367.832 94.32 358.894 101.79 345.398 101.79C331.902 101.79 323.234 94.5888 322.965 82.9968H322.942Z" fill="#FF8029"/>
+                <path d="M33.0864 39.8208C22.928 39.8208 13.912 44.7152 8.2672 52.264L18.5152 62.512C21.3936 57.4608 26.8368 54.0448 33.0864 54.0448C42.3488 54.0448 49.8752 61.5712 49.8752 70.8336C49.8752 80.096 42.3488 87.6224 33.0864 87.6224C27.9232 87.6224 23.2976 85.2928 20.2176 81.6304H4C8.3792 93.4352 19.7472 101.846 33.0864 101.846C50.2112 101.846 64.0992 87.9696 64.0992 70.8336C64.0992 53.6976 50.2112 39.8208 33.0864 39.8208Z" fill="currentColor"/>
+                <path d="M9.47681 12H56.0912C56.0912 19.1456 50.2896 24.936 43.1552 24.936H9.47681V12Z" fill="#FF8029"/>
+              </svg>
+            </span>
+            <span class="company-tag">the main company</span>
+            <span class="arrow">&#8599;</span>
           </a>
         </div>
 
@@ -712,7 +907,16 @@
           <span class="building-head">Currently building</span>
           <a class="venture c-gt" href="https://www.cinco.org.gt" target="_blank" rel="noopener">
             <span class="live"></span>
-            <span class="venture-text"><strong>Cinco Guatemala</strong> — public policy laboratory</span>
+            <span class="venture-text">
+              <svg class="logo-cinco" viewBox="0 0 299 114" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cinco">
+                <path d="M33.0864 39.8208C22.928 39.8208 13.912 44.7152 8.2672 52.264L18.5152 62.512C21.3936 57.4608 26.8368 54.0448 33.0864 54.0448C42.3488 54.0448 49.8752 61.5712 49.8752 70.8336C49.8752 80.096 42.3488 87.6224 33.0864 87.6224C27.9232 87.6224 23.2976 85.2928 20.2176 81.6304H4C8.3792 93.4352 19.7472 101.846 33.0864 101.846C50.2112 101.846 64.0992 87.9696 64.0992 70.8336C64.0992 53.6976 50.2112 39.8208 33.0864 39.8208Z" fill="#FF8029"/>
+                <path d="M73.3952 40.952H88.168V100.603H73.3952V40.952Z" fill="currentColor"/>
+                <path d="M99.0208 64.8528C99.0208 49.4416 108.138 39.7648 124.557 39.7648C140.976 39.7648 150.093 49.4304 150.093 64.8528V100.603H135.32V64.8528C135.32 57.5504 131.859 53.4512 124.557 53.4512C117.254 53.4512 113.794 57.5616 113.794 64.8528V100.603H99.0208V64.8528Z" fill="currentColor"/>
+                <path d="M157.944 70.7776C157.944 52.9024 171.082 39.7648 189.685 39.7648C205.645 39.7648 217.685 49.4304 220.698 63.576H205.096C202.722 57.4608 197.155 53.4512 189.685 53.4512C179.56 53.4512 172.907 60.7536 172.907 70.7776C172.907 80.8016 179.56 88.104 189.685 88.104C197.166 88.104 202.733 84.0944 205.096 77.9792H220.698C217.685 92.1136 205.645 101.79 189.685 101.79C171.082 101.79 157.944 88.6528 157.944 70.7776Z" fill="currentColor"/>
+                <path d="M226.443 70.7776C226.443 52.9024 239.581 39.7648 258.184 39.7648C276.787 39.7648 289.925 52.9024 289.925 70.7776C289.925 88.6528 276.787 101.79 258.184 101.79C239.581 101.79 226.443 88.6528 226.443 70.7776ZM274.962 70.7776C274.962 60.7424 268.298 53.4512 258.173 53.4512C248.048 53.4512 241.395 60.7536 241.395 70.7776C241.395 80.8016 248.048 88.104 258.173 88.104C268.298 88.104 274.962 80.8016 274.962 70.7776Z" fill="currentColor"/>
+              </svg>
+              <span class="venture-name">Guatemala</span> — public policy laboratory
+            </span>
             <span class="ext">&#8599;</span>
           </a>
 
@@ -730,29 +934,42 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 8h16z"/><path d="M5 8v9M9.33 8v9M14.67 8v9M19 8v9"/><path d="M3.5 17h17"/><path d="M3 21h18"/></svg>
               <span class="dash-name">Congreso</span>
             </a>
-            <a class="dash" href="https://pisto.cinco.org.gt/" target="_blank" rel="noopener" aria-label="Cinco — Pisto dashboard">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v10"/><path d="M14.5 9.2c0-1-1.1-1.8-2.5-1.8s-2.5.8-2.5 1.9c0 2.5 5 1.4 5 3.9 0 1.1-1.1 1.9-2.5 1.9s-2.5-.8-2.5-1.8"/></svg>
-              <span class="dash-name">Pisto</span>
+            <a class="dash" href="https://salud.cinco.org.gt/" target="_blank" rel="noopener" aria-label="Cinco — Salud dashboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 8.6c0 5-8.5 10.4-8.5 10.4S3.5 13.6 3.5 8.6a4.4 4.4 0 0 1 8.5-1.6 4.4 4.4 0 0 1 8.5 1.6z"/><path d="M3.8 11.5h3.7l1.6-2.6 1.9 4.4 1.5-2.6h4.9"/></svg>
+              <span class="dash-name">Salud</span>
+            </a>
+            <a class="dash" href="https://elecciones.cinco.org.gt/" target="_blank" rel="noopener" aria-label="Cinco — Elecciones dashboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.5h17v7.5h-17z"/><path d="M6.5 12.5V4h11v8.5"/><path d="M9.5 7.5l1.9 1.9 3.4-3.4"/></svg>
+              <span class="dash-name">Elecciones</span>
             </a>
           </div>
 
           <a class="venture c-compras" href="https://guatecompras.cinco.org.gt" target="_blank" rel="noopener">
             <span class="live"></span>
-            <span class="venture-text"><strong>GuateCompras Licita</strong> — SaaS for winning government tenders</span>
+            <span class="venture-text"><strong>Cinco Guatecompras</strong> — SaaS for winning government tenders</span>
             <span class="ext">&#8599;</span>
           </a>
+        </div>
 
-          <span class="building-head">Personal causes</span>
-          <a class="venture c-celiacos" href="https://celiacos.com.gt" target="_blank" rel="noopener">
-            <span class="live"></span>
-            <span class="venture-text"><strong>Celiacos Guatemala</strong> — for Guatemala's celiac community</span>
-            <span class="ext">&#8599;</span>
-          </a>
-          <a class="venture c-twicee" href="https://www.twicee.org/" target="_blank" rel="noopener">
-            <span class="live"></span>
-            <span class="venture-text"><strong>Twicee</strong> — a guide to twice-exceptionality (2e)</span>
-            <span class="ext">&#8599;</span>
-          </a>
+        <!-- personal causes — things I build because they matter to me, not
+             because they're the business. Deliberately quieter than the
+             "currently building" card above. -->
+        <div class="causes">
+          <span class="causes-head">Personal causes</span>
+          <div class="causes-grid">
+            <a class="cause c-celiacos" href="https://celiacos.com.gt" target="_blank" rel="noopener">
+              <span class="cause-name">Celiacos Guatemala</span>
+              <span class="cause-desc">for Guatemala's celiac community</span>
+            </a>
+            <a class="cause c-singluten" href="https://singluten.cinco.org.gt" target="_blank" rel="noopener">
+              <span class="cause-name">Sin Gluten Guatemala</span>
+              <span class="cause-desc">daily gluten-free price &amp; stock tracker</span>
+            </a>
+            <a class="cause c-twicee" href="https://www.twicee.org/" target="_blank" rel="noopener">
+              <span class="cause-name">Twicee</span>
+              <span class="cause-desc">a guide to twice-exceptionality (2e)</span>
+            </a>
+          </div>
         </div>
 
         <div class="contact">
