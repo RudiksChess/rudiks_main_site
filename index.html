@@ -329,7 +329,7 @@
       opacity: 0;
       animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
     }
-    .hero-por img {
+    .hero-por picture img {
       display: block;
       width: 100%;
       height: auto;
@@ -338,14 +338,29 @@
       border: 1px solid var(--line-strong);
     }
     .hero-por .cap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       font-family: var(--mono);
       font-size: 0.66rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--ink-3);
-      margin-top: 9px;
-      line-height: 1.6;
+      margin-top: 11px;
+      line-height: 1.7;
     }
+    .affil-lock {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 7px;
+      text-decoration: none;
+      color: var(--ink-3);
+      transition: opacity 0.18s ease;
+    }
+    .affil-lock:hover { opacity: 0.72; }
+    .affil-lock img { height: 21px; width: auto; aspect-ratio: auto; border: 0; object-fit: fill; display: block; }
+    .affil-lock .of { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; }
 
     /* ---------- fact strip ---------- */
     .strip { border-block: 1px solid var(--line); }
@@ -644,7 +659,14 @@
                  alt="Rudik Rompich, founder of Cinco" fetchpriority="high" decoding="async"
                  onerror="this.closest('figure').style.display='none'">
           </picture>
-          <figcaption class="cap">R. Rompich<br>Founder, Cinco</figcaption>
+          <figcaption class="cap">
+            R. Rompich
+            <a class="affil-lock" href="https://cincois.com" target="_blank" rel="noopener" aria-label="Founder of CincoIS — cincois.com">
+              <span class="of">Founder of</span>
+              <img src="cincois-logo.svg" alt="CincoIS" width="373" height="114"
+                   onerror="this.replaceWith(document.createTextNode('CincoIS'))">
+            </a>
+          </figcaption>
         </figure>
         </div>
       </div>
