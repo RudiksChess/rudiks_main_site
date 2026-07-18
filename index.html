@@ -430,9 +430,10 @@
 
     /* each symbol renders at its native pixel size — integer scale only, so
        every source pixel stays square. Idle bob is staggered per symbol. */
+    /* no fixed width — each sprite has its own native size (24x24 glyphs,
+       40x30 brick, 58x27 car) and every one renders 1:1 */
     .mini {
       display: block;
-      width: 24px;
       flex: none;
       text-decoration: none;
       opacity: 0;
@@ -440,8 +441,6 @@
     }
     .mini img {
       display: block;
-      width: 100%;
-      height: auto;
       image-rendering: pixelated;
       transform-origin: 50% 100%;
       animation: bob 2.8s ease-in-out infinite;
@@ -452,6 +451,7 @@
     .crew .mini:nth-of-type(2) img { animation-delay: 0.35s; }
     .crew .mini:nth-of-type(3) img { animation-delay: 0.7s; }
     .crew .mini:nth-of-type(4) img { animation-delay: 1.05s; }
+    .crew .mini:nth-of-type(5) img { animation-delay: 1.4s; }
     .mini:hover img { animation-play-state: paused; transform: translateY(-5px) scale(1.08); }
     .mini:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; border-radius: 4px; }
 
@@ -788,6 +788,9 @@
     /* short / landscape screens — keep the portrait from eating the viewport */
     @media (max-height: 560px) and (max-width: 900px) {
       .photo { height: 36vh; min-height: 200px; }
+      /* the photo shrinks to ~200px here, so tighten the stack to keep it
+         from running off the portrait and onto the content panel */
+      .crew { top: 12px; gap: 5px; }
     }
 
     /* desktop — lock the two-column hero to exactly one viewport so nothing
@@ -919,7 +922,12 @@
       </a>
       <a class="mini" href="https://legos.rudiks.com" target="_blank" rel="noopener"
          title="legos.rudiks.com" aria-label="legos.rudiks.com">
-        <img src="sym-legos.png" width="24" height="24" alt="" decoding="async" loading="lazy">
+        <img src="sym-legos.png" width="40" height="30" alt="" decoding="async" loading="lazy">
+      </a>
+      <a class="mini" href="https://gs350.rudiks.com" target="_blank" rel="noopener"
+         title="gs350.rudiks.com — Lexus GS 350 owner's platform"
+         aria-label="gs350.rudiks.com — Lexus GS 350 owner's platform">
+        <img src="sym-gs350.png" width="58" height="27" alt="" decoding="async" loading="lazy">
       </a>
 
       <!-- sleeping mascot — sprite traced from the reference at its native 60x48 -->
