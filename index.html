@@ -414,17 +414,54 @@
     .venture-name { color: var(--ink); font-weight: 600; transition: color 0.2s ease; }
     .venture:hover .venture-name { color: var(--vc); }
 
-    /* sleeping pixel mascot — parked in the page's upper-right (over the
-       content panel on desktop, over the photo on stacked mobile).
-       It breathes (slow squash/stretch) and puffs "z"s; hover wakes it. */
-    .snorlax {
+    /* the symbol stack — parked in the page's upper-right (over the content
+       panel on desktop, over the photo on stacked mobile), running vertically
+       down the edge and centred on a shared axis. */
+    .crew {
       position: absolute;
       top: 26px;
       right: 30px;
       z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* each symbol renders at its native pixel size — integer scale only, so
+       every source pixel stays square. Idle bob is staggered per symbol. */
+    .mini {
+      display: block;
+      width: 24px;
+      flex: none;
+      text-decoration: none;
+      opacity: 0;
+      animation: fadeIn 1.2s ease 1.3s forwards;
+    }
+    .mini img {
+      display: block;
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+      transform-origin: 50% 100%;
+      animation: bob 2.8s ease-in-out infinite;
+      filter: drop-shadow(0 3px 8px rgba(5, 7, 20, 0.5));
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .crew .mini:nth-of-type(1) img { animation-delay: 0s; }
+    .crew .mini:nth-of-type(2) img { animation-delay: 0.35s; }
+    .crew .mini:nth-of-type(3) img { animation-delay: 0.7s; }
+    .crew .mini:nth-of-type(4) img { animation-delay: 1.05s; }
+    .mini:hover img { animation-play-state: paused; transform: translateY(-5px) scale(1.08); }
+    .mini:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; border-radius: 4px; }
+
+    /* sleeping mascot — breathes (slow squash/stretch) and puffs "z"s */
+    .snorlax {
+      position: relative;   /* anchors the z's */
       display: block;
       /* 60px = the sprite's native width; integer scale keeps every pixel square */
       width: 60px;
+      flex: none;
       text-decoration: none;
       opacity: 0;
       animation: fadeIn 1.2s ease 1.3s forwards;
@@ -458,6 +495,10 @@
     .snorlax-z.z2 { font-size: 0.75rem; animation-delay: 0.5s; }
     .snorlax-z.z3 { font-size: 0.9rem;  animation-delay: 1s; }
 
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-2px); }
+    }
     @keyframes snooze {
       0%, 100% { transform: scaleY(1) scaleX(1); }
       50%      { transform: scaleY(0.955) scaleX(1.035); }
@@ -724,7 +765,7 @@
 
     /* stacked layout — the mascot sleeps on the photo's top-right corner */
     @media (max-width: 900px) {
-      .snorlax { top: 20px; right: 20px; }
+      .crew { top: 20px; right: 20px; gap: 7px; }
     }
 
     /* phones */
@@ -857,15 +898,40 @@
       </div>
     </section>
 
-    <!-- sleeping pixel mascot, upper-right — links to snorlaxturing.com.
-           Hand-authored SVG (transparent by construction, no bitmap matte). -->
-      <a class="snorlax" href="https://snorlaxturing.com" target="_blank" rel="noopener" aria-label="snorlaxturing.com">
+    <!-- one pixel symbol per side project, stacked vertically in the page's
+         upper-right. The sprites are their only label, so each carries a
+         title + aria-label naming where it goes. -->
+    <div class="crew">
+      <a class="mini" href="https://tesis.rudiks.com" target="_blank" rel="noopener"
+         title="tesis.rudiks.com — Lean para matemáticos"
+         aria-label="tesis.rudiks.com — Lean para matemáticos">
+        <img src="sym-tesis.png" width="24" height="24" alt="" decoding="async" loading="lazy">
+      </a>
+      <a class="mini" href="https://libros.rudiks.com" target="_blank" rel="noopener"
+         title="libros.rudiks.com — Bound in Candlelight"
+         aria-label="libros.rudiks.com — Bound in Candlelight">
+        <img src="sym-libros.png" width="24" height="24" alt="" decoding="async" loading="lazy">
+      </a>
+      <a class="mini" href="https://lean.rudiks.com" target="_blank" rel="noopener"
+         title="lean.rudiks.com — Pruebas como términos"
+         aria-label="lean.rudiks.com — Pruebas como términos">
+        <img src="sym-lean.png" width="24" height="24" alt="" decoding="async" loading="lazy">
+      </a>
+      <a class="mini" href="https://legos.rudiks.com" target="_blank" rel="noopener"
+         title="legos.rudiks.com" aria-label="legos.rudiks.com">
+        <img src="sym-legos.png" width="24" height="24" alt="" decoding="async" loading="lazy">
+      </a>
+
+      <!-- sleeping mascot — sprite traced from the reference at its native 60x48 -->
+      <a class="snorlax" href="https://snorlaxturing.com" target="_blank" rel="noopener"
+         title="snorlaxturing.com" aria-label="snorlaxturing.com">
         <span class="snorlax-z z1" aria-hidden="true">z</span>
         <span class="snorlax-z z2" aria-hidden="true">z</span>
         <span class="snorlax-z z3" aria-hidden="true">z</span>
         <img class="snorlax-img" src="snorlax.png" width="60" height="48"
              alt="" decoding="async" loading="lazy">
       </a>
+    </div>
 
     <section class="content">
       <div class="inner">
