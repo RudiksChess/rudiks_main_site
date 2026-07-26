@@ -953,7 +953,11 @@
         <p class="pitch flow">Founder of <a href="https://cincois.com" target="_blank" rel="noopener">Cinco</a>, where I architect the systems and automations that let high-growth teams <strong>scale output without scaling headcount</strong> — AI where it earns its place, not where it's a buzzword. Working <em>founder to founder</em> across the <strong>US, Canada, LatAm &amp; Australia</strong>.</p>
 
         <div class="actions">
-          <a class="btn btn-primary" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2D2k60mzN-EPa22NqxtK6Vm5IGt9fqlmY--K_RbDQLA056f5rxhsdyW1sM68hqqs-ri-n7LrBE" target="_blank" rel="noopener">
+          <a class="btn btn-primary"
+             href="https://cal.com/cincois/30min"
+             data-cal-link="cincois/30min"
+             data-cal-namespace="30min"
+             data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'>
             Book a working session <span class="arrow">&rarr;</span>
           </a>
           <a class="btn btn-ghost" href="https://www.upwork.com/freelancers/~017cffbe03216e94c3" target="_blank" rel="noopener">
@@ -1054,6 +1058,46 @@
     </section>
 
   </main>
+
+  <!-- Cal.com popup calendar -->
+  <script type="text/javascript">
+    (function (C, A, L) {
+      var p = function (a, ar) { a.q.push(ar); };
+      var d = C.document;
+      C.Cal = C.Cal || function () {
+        var cal = C.Cal;
+        var ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement("script")).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          var api = function () { p(api, arguments); };
+          var namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === "string") {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ["initNamespace", namespace]);
+          } else {
+            p(cal, ar);
+          }
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+
+    Cal("init", "30min", { origin: "https://app.cal.com" });
+    Cal.config = Cal.config || {};
+    Cal.config.forwardQueryParams = true;
+    Cal.ns["30min"]("ui", {
+      hideEventTypeDetails: false,
+      layout: "month_view"
+    });
+  </script>
 
   <script>
     (function () {
