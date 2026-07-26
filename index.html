@@ -337,6 +337,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      cursor: pointer;
     }
 
     .btn-primary {
@@ -953,13 +954,14 @@
         <p class="pitch flow">Founder of <a href="https://cincois.com" target="_blank" rel="noopener">Cinco</a>, where I architect the systems and automations that let high-growth teams <strong>scale output without scaling headcount</strong> — AI where it earns its place, not where it's a buzzword. Working <em>founder to founder</em> across the <strong>US, Canada, LatAm &amp; Australia</strong>.</p>
 
         <div class="actions">
-          <a class="btn btn-primary"
-             href="https://cal.com/cincois/30min"
-             data-cal-link="cincois/30min"
-             data-cal-namespace="30min"
-             data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'>
+          <button class="btn btn-primary"
+                  type="button"
+                  aria-haspopup="dialog"
+                  data-cal-link="cincois/30min"
+                  data-cal-namespace="30min"
+                  data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'>
             Book a working session <span class="arrow">&rarr;</span>
-          </a>
+          </button>
           <a class="btn btn-ghost" href="https://www.upwork.com/freelancers/~017cffbe03216e94c3" target="_blank" rel="noopener">
             See the work
           </a>
