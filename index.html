@@ -902,9 +902,15 @@
       </div>
     </section>
 
-    <!-- one pixel symbol per side project, stacked vertically in the page's
+    <!-- SIDE-PROJECT SYMBOLS — parked, not deleted.
+         One pixel symbol per side project, stacked vertically in the page's
          upper-right. The sprites are their only label, so each carries a
-         title + aria-label naming where it goes. -->
+         title + aria-label naming where it goes. The snorlax is the sleeping
+         mascot, traced from the reference at its native 60x48.
+         To bring them back: unwrap this <template>. The .crew / .mini /
+         .snorlax CSS above is still in place, and the sprite PNGs are still
+         in the repo. -->
+    <template id="crew-parked">
     <div class="crew">
       <a class="mini" href="https://tesis.rudiks.com" target="_blank" rel="noopener"
          title="tesis.rudiks.com — Lean para matemáticos"
@@ -931,7 +937,6 @@
         <img src="sym-gs350.png" width="58" height="27" alt="" decoding="async" loading="lazy">
       </a>
 
-      <!-- sleeping mascot — sprite traced from the reference at its native 60x48 -->
       <a class="snorlax" href="https://snorlaxturing.com" target="_blank" rel="noopener"
          title="snorlaxturing.com" aria-label="snorlaxturing.com">
         <span class="snorlax-z z1" aria-hidden="true">z</span>
@@ -941,6 +946,7 @@
              alt="" decoding="async" loading="lazy">
       </a>
     </div>
+    </template>
 
     <section class="content">
       <div class="inner">
